@@ -1,0 +1,208 @@
+﻿@using DevTaskFlow.Areas.Admin.ViewModels;
+@model ApiViewmodel;
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Generate Reports";
+}
+
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <style>
+        .task-detail-card {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(65, 84, 241, 0.11);
+            padding: 30px 35px 32px 35px;
+            max-width: 90%;
+            margin: 36px auto 60px auto;
+            min-width: 90%;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .task-detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .task-detail-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #26326a;
+            margin: 0;
+        }
+
+        .close-btn-x {
+            background: transparent;
+            border: none;
+            font-size: 2.5rem;
+            color: #6366F1;
+            cursor: pointer;
+            transition: color 0.18s;
+            line-height: 1;
+        }
+
+        .close-btn-x:hover {
+            color: #f14836;
+        }
+
+
+        /* Detail container styling */
+        #taskdetail {
+            width: 100%;
+        }
+
+        /* Each task detail block */
+        #taskdetail .container {
+            background: #f9fbff;
+            border-radius: 12px;
+            padding: 20px 26px;
+            box-shadow: 0 1px 12px rgba(65, 84, 241, 0.07);
+            margin-bottom: 18px;
+        }
+
+        /* Form group rows in details */
+        .form-group.row {
+            margin-bottom: 16px;
+        }
+
+        /* Icon and label styling */
+        .form-group.row .col-sm-3 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .form-group.row .col-sm-3 img {
+            filter: brightness(0.3);
+            width: 20px !important;
+            height: 20px !important;
+            margin: 0 !important;
+        }
+
+        /* Label value */
+        .form-control-plaintext {
+            font-size: 1.05rem;
+            color: #1e293b;
+        }
+
+    </style>
+</head>
+
+
+<div class="task-detail-card">
+    <div class="task-detail-header">
+        <h1>Api</h1>
+        <button onclick="parent.closeSidePanel()" class="close-btn-x" aria-label="Close">&times;</button>
+    </div>
+
+    <div id="taskdetail">
+        @if (ViewBag.ValidationErrorMessage != null)
+        {
+            var errors = ViewBag.ValidationErrorMessage as List<string>;
+            if (errors != null && errors.Any())
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <ul class="mb-0">
+                        @foreach (var error in errors)
+                        {
+                            <li>@error</li>
+                        }
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+        }
+
+        @if (ViewBag.SuccessMessage != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <span>@ViewBag.SuccessMessage</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span>@ViewBag.ErrorMessage</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        <form asp-action="Api" asp-controller="Home" asp-area="Admin" method="post">
+            
+            @Html.HiddenFor(m => m.Id)
+            <div class="container mt-2 mb-2">
+                <!-- Api name -->
+                <div class="form-group row mb-3">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <label class="col-form-label me-1">@Html.DisplayNameFor(m => m.ApiName)</label>
+                        <span class="required-star" title="Currently using api" style="color:red">*</span>
+                    </div>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(m => m.ApiName, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+
+                <!-- Month -->
+                <div class="form-group row mb-3">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <label class="col-form-label me-1">@Html.DisplayNameFor(m => m.Month)</label>
+                        <span class="required-star" title="please enter the current month" style="color:red">*</span>
+                    </div>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(m => m.Month, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <!--usage Count -->
+                <div class="form-group row mb-3">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <label class="col-form-label me-1">@Html.DisplayNameFor(m => m.UsageCount)</label>
+                        <span class="required-star" title="please enter the usage count" style="color:red">*</span>
+                    </div>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(m => m.UsageCount, new { @class = "form-control", type = "number", min = "0" })
+                    </div>
+                </div>
+                <!-- active -->
+                <div class="form-group row mb-3">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <label class="col-form-label me-1">@Html.DisplayNameFor(m => m.IsActive)</label>
+                        <span class="required-star" title="please select acive/inactive" style="color:red">*</span>
+                    </div>
+                    <div class="col-sm-9 d-flex align-items-center">
+                        <div class="form-check me-3">
+                            @Html.RadioButtonFor(m => m.IsActive, true, new { @class = "form-check-input", id = "isActiveYes" })
+                            <label class="form-check-label" for="isActiveYes">Yes</label>
+                        </div>
+                        <div class="form-check">
+                            @Html.RadioButtonFor(m => m.IsActive, false, new { @class = "form-check-input", id = "isActiveNo" })
+                            <label class="form-check-label" for="isActiveNo">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Save / Cancel Buttons -->
+                <div class="form-group row mt-4">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-9">
+                        <button type="submit" class="btn btn-outline-success">Save</button>
+                        <button type="button" class="btn btn-outline-danger ms-2" onclick="parent.closeSidePanel()">Cancel</button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>

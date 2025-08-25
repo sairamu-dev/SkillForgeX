@@ -1,0 +1,106 @@
+﻿@{
+    ViewData["Title"] = "Ping Me";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using DevTaskFlow.ViewModels;
+@model FeedbackViewModel;
+
+<style>
+    .task-form-card {
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 8px 32px rgba(65, 84, 241, 0.11);
+        padding: 32px 28px 26px 28px;
+        font-family: 'Open Sans', Verdana, Geneva, Tahoma, sans-serif;
+        color: #1e293b;
+        line-height: 1.6;
+        margin-bottom: 26px;
+    }
+</style>
+
+
+<div class="task-form-card" style="margin:10% 0% 0% 5%;max-width:90%">
+
+    <div style="align-items:center; margin-bottom:28px;">
+        <div>
+            <h1>Ping Me</h1>
+        </div>
+    </div>
+
+    @if (ViewBag.ValidationErrorMessage != null)
+    {
+        var errors = ViewBag.ValidationErrorMessage as List<string>;
+        if (errors != null && errors.Any())
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <ul class="mb-0">
+                    @foreach (var error in errors)
+                    {
+                        <li>@error</li>
+                    }
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+    }
+
+    @if (ViewBag.SuccessMessage != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <span>@ViewBag.SuccessMessage</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <span>@ViewBag.ErrorMessage</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <form asp-action="Feedback" asp-controller="Home" asp-area="" method="post">
+        @Html.AntiForgeryToken()
+
+        <!-- Name -->
+        <div class="form-group row mb-3">
+            <div class="col-sm-3 d-flex align-items-center">
+                <label class="col-form-label me-1">@Html.DisplayNameFor(m => m.Name)</label>
+                <span class="required-star" title="please enter the name" style="color:red">*</span>
+            </div>
+            <div class="col-sm-9">
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <!-- Title -->
+        <div class="form-group row mb-3">
+            <div class="col-sm-3 d-flex align-items-center">
+                <label class="col-form-label me-1">@Html.DisplayNameFor(m => m.Email)</label>
+                <span class="required-star" title="please enter the email" style="color:red">*</span>
+            </div>
+            <div class="col-sm-9">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <!-- Description -->
+        <div class="form-group row mb-3">
+            <div class="col-sm-3 d-flex align-items-center">
+                <label class="col-form-label me-1">@Html.DisplayNameFor(m => m.Message)</label>
+                <span class="required-star" title="please enter the report/suggestion" style="color:red">*</span>
+            </div>
+            <div class="col-sm-9">
+                @Html.TextAreaFor(m => m.Message, new { @class = "form-control", rows = "4" })
+            </div>
+        </div>
+
+        <!-- Save / Cancel Buttons -->
+        <div class="form-group row mt-4">
+            <div class="col-sm-12" style="display: grid;">
+                <button type="submit" class="btn btn-outline-success">Save</button>
+            </div>
+        </div>
+    </form>
+</div>

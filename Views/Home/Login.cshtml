@@ -1,0 +1,64 @@
+﻿ @{
+    Layout = null;
+    ViewData["Title"] = "login";
+}
+
+@using DevTaskFlow.ViewModels;
+@model UserTypeViewModel;
+
+<head>
+    <title>@ViewData["Title"]</title>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+
+<style>
+    .back-link {
+        text-decoration: none;
+        color: inherit;
+        border-bottom: 2px solid transparent;
+        transition: border-color 0.3s ease;
+    }
+
+    .back-link:hover {
+        border-bottom: 2px solid blue;
+    }
+</style>
+
+<body>
+    <div style="display: flex; height: 100vh; width: 100%;">
+        <div id="leftpanel" style="flex: 1; background-color: #181235; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; position: relative;">
+            <!-- Top-left corner branding container -->
+            <div style="position: absolute; top: 10px; left: 10px; display: flex; align-items: center;">
+                <img src="~/favicon.ico" alt="Logo" style="height: 30px;" />
+                <a href="#" style="margin-left: 10px; font-weight: bold; font-size: 18px; text-decoration: none; color: White; font-family: Arial, sans-serif;">
+                    DevTaskFlow
+                </a>
+            </div>
+        </div>
+        <div id="rightpanel" style="flex: 1; background-color: #0a051a; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;">
+            <form asp-action="Login" asp-controller="Home" method="post" style="flex: 1; background-color: #0a051a; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; width: 100%;">
+                <label id="welcometext" style="font-size: larger; font-family: cursive; color: white;">
+                    Are you signing in as a Guest or Registered User?
+                </label>
+
+                <div class="form-check" style="display: flex; align-items: center; gap: 5px;">
+                    @Html.RadioButtonFor(m => m.IsRegisteredUser, false, new { @class = "form-check-input", id = "IsRegisteredUserFalse" })
+                    <label class="form-check-label" for="IsRegisteredUserFalse" style="color: white;">Guest</label>
+                </div>
+
+                <div class="form-check" style="display: flex; align-items: center; gap: 5px;">
+                    @Html.RadioButtonFor(m => m.IsRegisteredUser, true, new { @class = "form-check-input", id = "IsRegisteredUserTrue" })
+                    <label class="form-check-label" for="IsRegisteredUserTrue" style="color: white;">Registered</label>
+                </div>
+
+                <button type="submit" class="btn btn-light" style="padding: 8px 16px; font-size: 1rem; cursor: pointer; margin-top: 10px;">
+                    Submit
+                </button>
+            </form>
+        </div>
+    </div>
+
+</body>

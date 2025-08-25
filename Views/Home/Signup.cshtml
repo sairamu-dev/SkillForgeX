@@ -1,0 +1,126 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Signup";
+}
+
+@using DevTaskFlow.ViewModels;
+@model LoginViewModel;
+
+<head>
+    <title>@ViewData["Title"]</title>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+
+<style>
+    .back-link {
+        text-decoration: none;
+        color: inherit;
+        border-bottom: 2px solid transparent;
+        transition: border-color 0.3s ease;
+    }
+
+    .back-link:hover {
+        border-bottom: 2px solid blue;
+    }
+</style>
+
+<body>
+    <div style="display:flex;height:100vh;width:100%">
+            <div id="leftpanel" style="flex:1; background-color:#0a051a;display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;">
+                
+                <!-- Top-left corner branding container -->
+                <div style="position: absolute; top: 10px; left: 10px; display: flex; align-items: center;">
+                    <img src="~/favicon.ico" alt="Logo" style="height:30px;" />
+                    <a style="margin-left: 10px; font-weight: bold; font-size: 18px; text-decoration: none; color: white;"
+                       asp-area=""
+                       asp-controller="Home"
+                       asp-action="Index">
+                        DevTaskFlow
+                    </a>
+                </div>
+
+                @if (ViewBag.ValidationErrorMessage != null)
+                {
+                    var errors = ViewBag.ValidationErrorMessage as List<string>;
+                    if (errors != null && errors.Any())
+                    {
+                        <div style="position: absolute; top: 60px; left: 25%; transform: translateX(-50%); z-index: 1000; width: 90%; max-width: 400px;">
+                            <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                                <ul class="mb-0">
+                                    @foreach (var error in errors)
+                                    {
+                                        <li class="d-flex align-items-center">
+                                            <img src="~/images/exclamation-octagon-fill.svg" alt="error icon" style="width:16px; height:16px; margin-right: 5px;" />
+                                            <span>@error</span>
+                                        </li>
+                                        
+                                    }
+                                </ul>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    }
+                }
+
+            @if (ViewBag.ErrorMessage != null)
+            {
+                <div style="position: absolute; top: 60px; left: 25%; transform: translateX(-50%); z-index: 1000; width: 90%; max-width: 400px;">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <span>@ViewBag.ErrorMessage</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+                
+            }
+
+
+                <div id="dvloginpanel">
+                        <form id="loginForm" asp-action="Signup" method="post">
+                            <div class="form-group row mb-2">
+                                @Html.LabelFor(m => m.UserName, htmlAttributes: new { @class = "col-sm-3 col-form-label", style = "color: white;" })
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", id = "txtUserName" })
+                                </div>
+                            </div>
+
+                            @if(Model.isRegisteredUser)
+                            {
+                                <div class="form-group row mb-2">
+                                        @Html.LabelFor(m => m.Password, htmlAttributes: new { @class = "col-sm-3 col-form-label", style = "color: white;" })
+                                    <div class="col-sm-9">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", id = "txtPassword" })
+                                    </div>
+                                </div>
+                            }
+
+                            @Html.HiddenFor(m => m.isRegisteredUser, new { @class = "form-control", id = "txtisRegisteredUser" })
+
+                            <div class="form-group row mb-2">
+                                <div class="col-sm-9 offset-sm-3">
+                                    <button type="submit" class="btn btn-primary">Login</button>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+
+            </div>
+            <div id="rightpanel" style="flex:1; background-color:#181235; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;">
+                <label id="welcometext" style="font-size: larger;font-family: cursive;color:white;">You are signed in as a</label>
+
+                @if (Model.isRegisteredUser)
+                {
+                    <button type="button" class="btn btn-light" id="btnguest">Registered</button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-light" id="btnguest">Guest</button>
+                }
+
+                <a class="back-link" id="lnkback" asp-area="" asp-controller="Home" asp-action="Login" style="color:white;"> Back </a>
+            </div>
+        </div>   
+</body>
+

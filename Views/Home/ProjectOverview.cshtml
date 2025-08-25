@@ -1,0 +1,235 @@
+﻿@{
+    ViewData["Title"] = "Project Overview";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+
+    .project-overview-card {
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 8px 32px rgba(65, 84, 241, 0.11);
+        padding: 32px 28px 26px 28px;
+        font-family: 'Open Sans', Verdana, Geneva, Tahoma, sans-serif;
+        color: #1e293b;
+        line-height: 1.6;
+        margin-bottom: 26px;
+    }
+
+    .project-overview-card h2 {
+        font-size: 1.55rem;
+        font-weight: 600;
+        margin-bottom: 14px;
+        color: #4154f1;
+    }
+
+    .project-overview-card p,
+    .project-overview-card ul {
+        font-size: 1rem;
+        color: #334155;
+    }
+
+    .project-overview-card ul {
+        list-style-type: disc;
+        padding-left: 22px;
+    }
+
+    .project-overview-card strong {
+        color: #1e293b;
+        font-weight: 600;
+    }
+
+    .project-overview-card em {
+        font-style: italic;
+        color: #475569;
+    }
+
+</style>
+
+<div class="project-overview-card" style="margin:1% 0% 0% 5%;max-width:90%">
+    <h1 style="margin-bottom: 3%;">🚀 Introducing DevTaskFlow</h1>
+    <p><strong>AI-Powered Task Assigner for Developer Teams</strong></p>
+
+    <!-- 1. Start with the problem -->
+    <section class="project-overview-card">
+        <h2>💡 The Problem</h2>
+        <p>As developers, we’ve all experienced:</p>
+        <ul>
+            <li>❌ Tasks assigned without considering actual skills</li>
+            <li>❌ Some teammates are drowning in tasks, others barely busy</li>
+            <li>❌ Priorities change, but task assignments don’t adapt</li>
+        </ul>
+        <p><strong>Research-backed insights:</strong></p>
+        <ul>
+            <li>58% of developers work on mismatched tasks <b>(2023 Stack Overflow Survey)</b></li>
+            <li>Manual assignment consumes ~15% of sprint planning <b>(2022 Atlassian Report)</b></li>
+            <li>Unbalanced workloads accelerate burnout <b>(HBR, 2021)</b></li>
+        </ul>
+    </section>
+
+    <!-- 2. Why this project -->
+    <section class="project-overview-card">
+        <h2>🧠 Why DevTaskFlow?</h2>
+        <p>DevTaskFlow solves these challenges with AI-powered task allocation:</p>
+        <ul>
+            <li>Extracts skills automatically from task descriptions</li>
+            <li>Matches the best developer for each task</li>
+            <li>Distributes work fairly across the team</li>
+            <li>Handles priorities dynamically — urgent tasks override less critical ones</li>
+            <li>Limits each developer to 5 active tasks to prevent overload</li>
+        </ul>
+    </section>
+
+    <!-- 4. Founder’s motivation -->
+    <section class="project-overview-card">
+        <h2>🎯 Why I Built This</h2>
+        <p>After seeing teams lose hours on manual assignments, leading to frustration and burnout, my goals were:</p>
+        <ul>
+            <li>✔️ Eliminate skill mismatches</li>
+            <li>✔️ Prevent burnout through fair workload distribution</li>
+            <li>✔️ Give managers transparency without micromanagement</li>
+        </ul>
+    </section>
+
+    <!-- 3. Features / Roles -->
+    <section class="project-overview-card">
+        <h2>🔐 Role-Based Access</h2>
+        <ul>
+            <li><strong>Admin:</strong> Full control with override capabilities</li>
+            <li><strong>Manager:</strong> Create tasks & track progress</li>
+            <li><strong>Developer:</strong> Manage and update assigned tasks</li>
+            <li><strong>Guest:</strong> Temporary access for oversight</li>
+        </ul>
+    </section>
+
+    <!-- 5. Comparison -->
+    <section class="project-overview-card">
+        <h2>⚡ Feature Comparison</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Jira/Trello</th>
+                    <th>DevTaskFlow</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Task Assignment</td>
+                    <td>Manual guesswork</td>
+                    <td>AI auto-assigns by skills & availability</td>
+                </tr>
+                <tr>
+                    <td>Workload Management</td>
+                    <td>No task limits per dev</td>
+                    <td>Hard cap of 5 tasks per dev</td>
+                </tr>
+                <tr>
+                    <td>Skill Matching</td>
+                    <td>Not considered</td>
+                    <td>Ensures only matching tasks are assigned</td>
+                </tr>
+                <tr>
+                    <td>Priority Handling</td>
+                    <td>Labels only, no real impact</td>
+                    <td>High-priority tasks auto-adjust assignments</td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        <p><strong>Developer-first focus:</strong> Built to protect developers from mismatched or excessive workloads.</p>
+    </section>
+</div>
+
+
+@* <div class="project-overview-card" style="margin:1% 0% 0% 5%;max-width:90%">
+    <h1 style="margin-bottom: 3%;">🚀 Introducing DevTaskFlow</h1>
+    <p><strong>AI-Powered Task Assigner for Developer Teams</strong></p>
+
+    <section class="project-overview-card">
+        <h2>💡 The Problem</h2>
+        <p>As developers, we’ve all experienced:</p>
+        <ul>
+            <li>❌ Tasks assigned without considering actual skills</li>
+            <li>❌ Some teammates are drowning in tasks, others barely busy</li>
+            <li>❌ Priorities change, but task assignment stays stuck</li>
+        </ul>
+        <p><strong>Research-backed insights:</strong></p>
+        <ul>
+            <li>58% of developers report working on mismatched tasks <b>(2023 Stack Overflow Developer Survey)</b></li>
+            <li>Manual task assignment consumes ~15% of sprint planning time <b>(2022 Atlassian Team Practices Report)</b></li>
+            <li>Unbalanced workloads contribute significantly to burnout <b>(Harvard Business Review, 2021)</b></li>
+        </ul>
+    </section>
+
+    <section class="project-overview-card">
+        <h2>🧠 Why DevTaskFlow?</h2>
+        <p>DevTaskFlow is an AI-powered task assigner that automates allocation based on skills, priority, and workload:</p>
+        <ul>
+            <li>Automatically extracts skills from task descriptions</li>
+            <li>Finds the best developer for each task</li>
+            <li>Assigns based on priority (Low, Medium, High)</li>
+            <li>High-priority tasks are immediately assigned to the best developer, while their lower / medium priority tasks are temporarily put on hold.</li>
+            <li>Limits each developer to 5 active tasks to prevent overload</li>
+        </ul>
+    </section>
+
+    <section class="project-overview-card">
+        <h2>🔐 Role-Based Access</h2>
+        <ul>
+            <li><strong>Admin:</strong> Full control with override capabilities</li>
+            <li><strong>Manager:</strong> Create tasks and track progress</li>
+            <li><strong>Developer:</strong> Update and manage their own tasks</li>
+            <li><strong>Guest:</strong> Temporary manager access for oversight</li>
+        </ul>
+    </section>
+
+    <section class="project-overview-card">
+        <h2>🎯 Why I Built This</h2>
+        <p>After watching teams waste hours on manual task assignment leading to frustration and burnout, my goals were:</p>
+        <ul>
+            <li>✔️ Eliminate skill mismatches</li>
+            <li>✔️ Prevent burnout through fair workload distribution</li>
+            <li>✔️ Create transparent visibility for managers without micromanagement</li>
+        </ul>
+    </section>
+
+    <section class="project-overview-card">
+        <h2>⚡ Feature Comparison</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Jira/Trello</th>
+                    <th>DevTaskFlow</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Task Assignment</td>
+                    <td>Manual assignment guesswork</td>
+                    <td>AI auto-assigns based on skills & availability</td>
+                </tr>
+                <tr>
+                    <td>Workload Management</td>
+                    <td>No limits on tasks per dev</td>
+                    <td>Hard cap at 5 tasks per dev</td>
+                </tr>
+                <tr>
+                    <td>Skill Matching</td>
+                    <td>None – tasks assigned regardless</td>
+                    <td>Assigns tasks only matching skills</td>
+                </tr>
+                <tr>
+                    <td>Priority Handling</td>
+                    <td>Priority labels, no impact on assignment</td>
+                    <td>High-priority tasks pushed to front automatically</td>
+                </tr>
+            </tbody>
+        </table><br />
+        <p><strong>Developer Focus:</strong> Built to avoid mismatched work, not just manager-centric.</p>
+    </section>
+</div> *@
+
+
+

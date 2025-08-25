@@ -1,0 +1,39 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+    Layout = null;
+}
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</head>
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh; width: 100%;">
+    <div class="text-center">
+        <h3 class="mb-3">Error</h3>
+        <p class="text-muted">
+            <h2 class="text-danger">An error occurred while processing your request.</h2><br>
+            @if (Model.ShowRequestId)
+            {
+                <p>
+                    <strong>Request ID:</strong> <code>@Model.RequestId</code>
+                </p>
+            }
+            @if (Model.ShowErrorMessage)
+            {
+                <p>
+                    <strong>Error:</strong> <code>@Model.ErrorMessage</code>
+                </p>
+            }
+       </p>
+
+        <div class="mt-4">
+            <a class="btn btn-primary me-2" onclick="parent.closeSidePanel()" href="/Home/Dashboard">
+                Go to Home
+            </a>
+        </div>
+    </div>
+</div>

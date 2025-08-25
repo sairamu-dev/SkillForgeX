@@ -1,0 +1,343 @@
+﻿@using DevTaskFlow.Areas.Manager.ViewModels;
+@model IEnumerable<TasksViewModel>
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Dev Task";
+}
+
+<head>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/all.min.css" />
+    <script src="~/js/chartloader.js"></script>
+
+    <style>
+        body {
+            background: #f4f6fb;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .task-detail-card {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(65, 84, 241, 0.11);
+            padding: 30px 35px 32px 35px;
+            max-width: 90%;
+            margin: 36px auto 60px auto;
+            min-width: 90%;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .task-detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .task-detail-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #26326a;
+            margin: 0;
+        }
+
+        .close-btn-x {
+            background: transparent;
+            border: none;
+            font-size: 2.5rem;
+            color: #6366F1;
+            cursor: pointer;
+            transition: color 0.18s;
+            line-height: 1;
+        }
+
+        .close-btn-x:hover {
+            color: #f14836;
+        }
+
+        #myChart {
+            width: 100% !important;
+            height: 400px !important;
+            margin-bottom: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(65, 84, 241, 0.07);
+        }
+
+        /* Detail container styling */
+        #taskdetail {
+            width: 100%;
+        }
+
+        /* Each task detail block */
+        #taskdetail .container {
+            background: #f9fbff;
+            border-radius: 12px;
+            padding: 20px 26px;
+            box-shadow: 0 1px 12px rgba(65, 84, 241, 0.07);
+            margin-bottom: 18px;
+        }
+
+        /* Form group rows in details */
+        .form-group.row {
+            margin-bottom: 16px;
+        }
+
+        /* Icon and label styling */
+        .form-group.row .col-sm-3 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .form-group.row .col-sm-3 img {
+            filter: brightness(0.3);
+            width: 20px !important;
+            height: 20px !important;
+            margin: 0 !important;
+        }
+
+        /* Label value */
+        .form-control-plaintext {
+            font-size: 1.05rem;
+            color: #1e293b;
+        }
+
+        /* Badges styling consistent */
+        .badge.bg-primary {
+            background-color: #4154f1; /* main brand color */
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.4em 0.7em;
+        }
+        .badge.bg-danger {
+            background-color: #f24848;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.4em 0.7em;
+        }
+        .badge.bg-warning {
+            background-color: #facc15;
+            color: #1e293b;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.4em 0.7em;
+        }
+        .badge.bg-info {
+            background-color: #3b82f6;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.4em 0.7em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="task-detail-card">
+        <div class="task-detail-header">
+            <h1>Task detail</h1>
+            <button onclick="parent.closeSidePanel()" class="close-btn-x" aria-label="Close">&times;</button>
+        </div>
+
+        <div id="myChart"></div>
+
+        <div id="taskdetail">
+            @if (Model != null && Model.Any())
+            {
+                foreach (var task in Model)
+                {
+                    <div class="container mt-2 mb-2" id="taskdetail-@task.TaskID" style="display:none;">
+
+                        <!-- Project -->
+                        <div class="form-group row mb-3">
+                            <div class="col-sm-3 d-flex align-items-center">
+                                <i class="fa fa-clipboard-check me-2" aria-hidden="true"></i>
+                                @* <img src="~/images/clipboard2-check-fill.svg" alt="clipboard icon" style="width:16px; height:16px; margin-right: 5px;" /> *@
+                                <label class="col-form-label mb-0"><b>Project:</b></label>
+                            </div>
+                            <div class="col-sm-9">
+                                <label class="form-control-plaintext mb-0"><span class="badge bg-primary"><b>@task.ProjectName</b></span></label>
+                            </div>
+                        </div>
+
+
+                        <!-- Title -->
+                        <div class="form-group row mb-3">
+                            <div class="col-sm-3 d-flex align-items-center">
+                                <i class="fa fa-paint-brush me-2" aria-hidden="true"></i>
+                                @* <img src="~/images/brush-fill.svg" alt="brush-fill icon" style="width:16px; height:16px; margin-right: 5px;" /> *@
+                                <label class="col-sm-3 col-form-label"><b>Title:</b></label>
+                            </div>
+                            <div class="col-sm-9">
+                                <label class="form-control-plaintext">@task.Title</label>
+                            </div>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="form-group row mb-3">
+                            <div class="col-sm-3 d-flex align-items-center">
+                                <i class="fa fa-chalkboard me-2" aria-hidden="true"></i>
+                                @* <img src="~/images/easel2-fill.svg" alt="easel2-fill icon" style="width:16px; height:16px; margin-right: 5px;" /> *@
+                                <label class="col-sm-3 col-form-label"><b>Description:</b></label>
+                            </div>
+                            <div class="col-sm-9">
+                                <label class="form-control-plaintext">@task.Description</label>
+                            </div>
+                        </div>
+
+                        <!-- Priority (Radio Buttons) -->
+                        <div class="form-group row mb-3">
+                            <div class="col-sm-3 d-flex align-items-center">
+                                <i class="fa fa-crosshairs me-2" aria-hidden="true"></i>
+                                @* <img src="~/images/crosshair2.svg" alt="crosshair2 icon" style="width:16px; height:16px; margin-right: 5px;" /> *@
+                                <label class="col-sm-3 col-form-label"><b>Priority:</b></label>
+                            </div>
+                            <div class="col-sm-9">
+                                @if (task.Priority == "High")
+                                {
+                                    <label class="form-control-plaintext"><span class="badge bg-danger"><b>@task.Priority</b></span></label>
+                                }
+                                else if (task.Priority == "Medium")
+                                {
+                                    <label class="form-control-plaintext"><span class="badge bg-warning"><b>@task.Priority</b></span></label>
+                                }
+                                else
+                                {
+                                    <label class="form-control-plaintext"><span class="badge bg-info"><b>@task.Priority</b></span></label>
+                                }
+
+                            </div>
+                        </div>
+
+                        <!-- Status -->
+                        <div class="form-group row mb-3">
+                            <div class="col-sm-3 d-flex align-items-center">
+                                <i class="fa fa-thumbtack me-2" aria-hidden="true"></i>
+                                @* <img src="~/images/pin-angle-fill.svg" alt="pin-angle-fill icon" style="width:16px; height:16px; margin-right: 5px;" /> *@
+                                <label class="col-sm-3 col-form-label"><b>Status:</b></label>
+                            </div>
+
+                            <div class="col-sm-9">
+                                <label class="form-control-plaintext">@task.Status</label>
+                            </div>
+                        </div>
+
+                        <!-- Estimated Days -->
+                        <div class="form-group row mb-3">
+                            <div class="col-sm-3 d-flex align-items-center">
+                                <i class="fa fa-hourglass-half me-2" aria-hidden="true"></i>
+                                @* <img src="~/images/hourglass-top.svg" alt="hourglass-top icon" style="width:16px; height:16px; margin-right: 5px;" /> *@
+                                <label class="col-form-label mb-0"><b>Estimated days:</b></label>
+                            </div>
+
+                            <div class="col-sm-9">
+                                <label class="form-control-plaintext">@task.EstimatedDays</label>
+                            </div>
+                        </div>
+
+                        <!-- CreatedDate -->
+                        <div class="form-group row mb-3">
+                            <div class="col-sm-3 d-flex align-items-center">
+                                <i class="fa fa-calendar-day me-2" aria-hidden="true"></i>
+                               @*  <img src="~/images/calendar-event-fill.svg" alt="calendar-top icon" style="width:16px; height:16px; margin-right: 5px;" /> *@
+                                <label class="col-form-label mb-0"><b>Created date:</b></label>
+                            </div>
+                            <div class="col-sm-9">
+                                <label class="form-control-plaintext">@task.CreatedDate</label>
+                            </div>
+                        </div>
+
+                        <!-- CompletePercentage -->
+                        <div class="form-group row mb-3">
+                            <div class="col-sm-3 d-flex align-items-center">
+                                <i class="fa fa-chart-bar me-2" aria-hidden="true"></i>
+@*                                 <img src="~/images/bar-chart-fill.svg" alt="bar-chart-fill icon" style="width:16px; height:16px; margin-right: 5px;" />
+ *@                                <label class="col-form-label mb-0"><b>Completion:</b></label>
+                            </div>
+                            <div class="col-sm-9">
+                                <label class="form-control-plaintext">@task.CompletePercentage</label>
+                            </div>
+                        </div>
+
+                        <!-- Enddate -->
+                        <div class="form-group row mb-3">
+                            <div class="col-sm-3 d-flex align-items-center">
+                                <i class="fa fa-calendar-alt me-2" aria-hidden="true"></i>
+                                @* <img src="~/images/calendar-event-fill.svg" alt="calendar-top icon" style="width:16px; height:16px; margin-right: 5px;" /> *@
+                                <label class="col-form-label mb-0"><b>End date:</b></label>
+                            </div>
+                            <div class="col-sm-9">
+                                <label class="form-control-plaintext">@task.EndDate</label>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+    <script>
+        var taskId = [];
+
+        $(document).ready(function () {
+        @foreach (var item in Model)
+        {
+            <text>taskId.push(@item.TaskID);</text>
+        }
+            });
+
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            const data = google.visualization.arrayToDataTable([
+                ['Task', 'Completion', 'ID'],
+        @foreach (var item in ViewBag.ChartData)
+        {
+            <text>['@item.Label', @item.Percentage, '@item.ID'],</text>
+        }
+                ]);
+
+            const options = {
+                title: '@(ViewBag.DEV)',
+                is3D: true
+            };
+
+            const chart = new google.visualization.PieChart(document.getElementById('myChart'));
+            chart.draw(data, options);
+
+            google.visualization.events.addListener(chart, 'select', function () {
+                closePreviousDetails();
+                const selection = chart.getSelection();
+                if (selection.length > 0) {
+                    const row = selection[0].row;
+                    const label = data.getValue(row, 0);
+                    const id = data.getValue(row, 2);
+                    showDetails(id);
+                }
+            });
+        }
+
+        function showDetails(taskID) {
+            const div = document.getElementById("taskdetail-" + taskID);
+            if (div)
+                div.style.display = 'block';
+        }
+
+        function closePreviousDetails() {
+            for (let i = 0; i < taskId.length; i++) {
+                const div = document.getElementById("taskdetail-" + taskId[i]);
+                if (div && window.getComputedStyle(div).display === 'block')
+                    div.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+
+
+

@@ -1,0 +1,103 @@
+﻿@using DevTaskFlow.Areas.Manager.ViewModels
+@model IEnumerable<UsersViewModel>
+
+@{
+    ViewData["Title"] = "View/Create Tasks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_sidePanelLayout")
+
+
+<div class="dev-users-card" style="padding: 30px;">
+    <div id="header" style="display: flex; align-items: center; margin-bottom: 3%;">
+        <div>
+            <h1>Dev Users</h1>
+        </div>
+        <div style="margin-left: auto;">
+            <button type="button" id="btnTaskCreate"
+                    onclick="openSidePanel('@Url.Action("Task", "Home", new { area = "Manager" })')"
+                    class="btn btn-primary">
+                Create Task
+            </button>
+        </div>
+    </div>
+
+    <!-- Always visible header -->
+    <div class="alert alert-primary" role="alert" style="padding: 1rem 1rem 0rem 1rem">
+        <p class="alert-heading" style="display: flex;justify-content: space-between;">
+            <span><i class="fa fa-info-circle" aria-hidden="true"></i> Note</span>
+            <span><button class="btn btn-sm btn-outline-primary float-right" onclick="toggleNoteContent()"><i class="fa fa-chevron-down ms-auto"></i></button></span>
+        </p>
+
+        <!-- Hidden content to be toggled -->
+        <div id="noteContent" style="display: none;">
+            <p>Each developer can handle up to 5 tasks concurrently. Since all developers are currently at full capacity, your task will be put on hold.</p>
+            <hr>
+            <p>In this project, I focused primarily on .NET technologies and frontend development. I used an AI prompt specifically designed to extract skills relevant to these areas.</p>
+        </div>
+    </div>
+
+    
+
+    <table class="table dev-users-table table-hover table-responsive">
+        <thead>
+            <tr>
+                <th>User Name</th>
+                <th>Role</th>
+                <th>IsActive</th>
+                <th>Concurrent Task</th>
+                <th>Skills</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var user in Model)
+                {
+                    <tr>
+                        <td data-label="User Name">@user.UserName</td>
+                        <td data-label="Role">@((PortalRoles)user.UserRole)</td>
+                        <td data-label="IsActive">
+                            @if (user.IsActive)
+                            {
+                                <span style="color:#22C55E; font-weight:600;">Active</span>
+                            }
+                            else
+                            {
+                                <span style="color:#f14836; font-weight:600;">Inactive</span>
+                            }
+                        </td>
+                        <td data-label="Concurrent Task">
+                            <button type="button"
+                                    class="btn btn-outline-danger"
+                                    onclick="if (@(user.ConcurrentTask ?? 0) === 0) return false; openSidePanel('@Url.Action("GetDeveloperTask", "Home", new { area = "Manager", Dev = user.ID })')"
+                                    title="@(user.ConcurrentTask == null || user.ConcurrentTask == 0 ? "No ongoing tasks" : "Click to view ongoing task")">
+                                <img src="~/images/clipboard2-check-fill.svg" alt="clipboard icon" style="width:16px; height:16px; margin-right: 5px;" />
+                                @(user.ConcurrentTask ?? 0)
+                            </button>
+                        </td>
+                        <td data-label="Skills">@user.Skills</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" class="text-center" style="padding: 34px 0; color: #aaa; font-weight: 500;">No users found.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function toggleNoteContent() {
+        var content = document.getElementById("noteContent");
+        content.style.display = content.style.display === "none" ? "block" : "none";
+    }
+</script>
+
+
+
+

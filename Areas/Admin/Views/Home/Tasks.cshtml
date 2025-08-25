@@ -1,0 +1,174 @@
+﻿@{
+    ViewData["Title"] = "Update/Override Tasks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using DevTaskFlow.Areas.Admin.ViewModels;
+@model IEnumerable<TaskViewModel>;
+
+
+@Html.Partial("_sidePanelLayout")
+
+<style>
+    .dev-users-card {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 6px 28px rgba(40, 48, 85, 0.1);
+        max-width: 90%;
+        margin: 30px auto;
+        padding: 30px 40px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #262626;
+    }
+
+        .dev-users-card h1 {
+            font-weight: 700;
+            font-size: 2rem;
+            color: #4154f1;
+            margin: 0;
+        }
+
+    .dev-users-table {
+        border-collapse: separate;
+        border-spacing: 0;
+        width: 100%;
+        background: #fff;
+        margin-top: 24px;
+    }
+
+        .dev-users-table thead tr {
+            background: linear-gradient(90deg, #4154f1 70%, #7a81ff 100%);
+            color: #fff;
+        }
+
+        .dev-users-table thead th {
+            border: none;
+            padding: 18px 16px;
+            font-weight: 600;
+            font-size: 1.15rem;
+            text-align: center;
+        }
+
+        .dev-users-table tbody tr {
+            transition: background-color 0.15s ease-in-out;
+            cursor: default;
+        }
+
+            .dev-users-table tbody tr:hover {
+                background-color: #f4f6ff;
+                box-shadow: 0 1px 10px rgba(65, 84, 241, 0.07);
+            }
+
+        .dev-users-table td {
+            padding: 14px 12px;
+            vertical-align: middle;
+            border-top: 1px solid #eef0fa;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+            .dev-users-table td:first-child {
+                text-align: left;
+            }
+
+        .dev-users-table .btn-outline-primary {
+            border: 1px solid blue;
+            color: black;
+            background-color: #faf7f6;
+            font-weight: 500;
+            border-radius: 25px;
+            padding: 5px 18px 5px 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+            font-size: 0.95rem;
+        }
+
+        .dev-users-table .btn-outline-primary:hover {
+                background-color: blue;
+                color: #fff;
+                border-color: white;
+            }
+
+        .dev-users-table .btn-outline-primary img {
+                filter: grayscale(20%);
+            }
+
+</style>
+
+<div class="dev-users-card" style="padding: 30px;">
+    <div id="header" style="display: flex; align-items: center; margin-bottom: 3%;">
+        <div>
+            <h1>Tasks</h1>
+        </div>
+    </div>
+
+    <table class="table dev-users-table table-hover table-responsive">
+        <thead>
+            <tr>
+                <th>Project ID</th>
+                <th>Project Name</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var task in Model)
+                {
+                    <tr>
+                        <td>@task.TaskID</td>
+                        <td>
+                            @{
+                                string projectName = task.TaskID switch
+                                {
+                                    1000 => "TeamForge",
+                                    1001 => "NextGen",
+                                    1002 => "WorkBridge",
+                                    1003 => "WorkNest",
+                                    _ => "ProjectPulse"
+                                };
+                            }
+                            @projectName
+                        </td>
+                        <td>@task.Title</td>
+                        <td>@task.Description</td>
+
+                        <td>
+                            @{
+                                string badgeClass = task.Status switch
+                                {
+                                    "In-Queue" => "bg-secondary",
+                                    "Pending" => "bg-dark",
+                                    "InProgress" => "bg-primary",
+                                    "Completed" => "bg-success"
+                                };
+                            }
+                            <span class="badge @badgeClass"><b>@task.Status</b></span>
+                        </td>
+
+                        <td>
+                            <button type="button" class="btn btn-outline-primary"
+                                    onclick="openSidePanel('@Url.Action("UpdateTask", "Home", new { taskId = task.TaskID })')"
+                                    title="Click to update task">
+                                <i class="fa-solid fa-pen"></i> Edit
+                            </button>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6" class="text-center" style="padding: 34px 0; color: #aaa; font-weight: 500;">
+                        No Tasks found.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

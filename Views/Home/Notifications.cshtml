@@ -1,0 +1,73 @@
+﻿@{
+    ViewData["Title"] = "Notifications";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .title-card {
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 8px 32px rgba(65, 84, 241, 0.11);
+        padding: 32px 28px 26px 28px;
+        font-family: 'Open Sans', Verdana, Geneva, Tahoma, sans-serif;
+        color: #1e293b;
+        line-height: 1.6;
+        margin-bottom: 26px;
+    }
+</style>
+
+<div class="title-card" style="margin:1% 0% 0% 5%;max-width:90%">
+    <h1 style="margin-bottom: 3%;">
+        Notifications
+    </h1>
+
+    @if (ViewBag.CurrentUser == "Guest")
+    {
+        <section class="title-card">
+            <h3>Welcome, Guest User 👋</h3><br />
+            <p>
+
+                <strong>For a limited time,</strong> you have <strong style="color:red">Manager privileges.</strong>
+                <ul>✅ You can create tasks</ul>
+                <ul>✅ You can view task updates</ul>
+                <ul>✅ You can submit bug reports, suggestions and feedbacks for this application <a asp-area="" asp-controller="Home" asp-action="Feedback" title="Explore"><i class="fa-solid fa-square-arrow-up-right"></i> </a> </ul>
+                <ul>✅ learn more about this application <a asp-area="" asp-controller="Home" asp-action="ProjectOverview" title="Explore"><i class="fa-solid fa-square-arrow-up-right"></i> </a> </ul>
+                <ul>❌ Access to <strong>Admin and Developer pages is restricted.</strong> </ul>
+            </p>
+        </section>
+    }
+    
+    @if (ViewBag.CurrentUser == "Admin")
+    {
+        <section class="title-card">
+            <h3>Welcome, Admin 👋</h3><br />
+            <p>
+                <ul>✅ To Generate reports / Enable or Disable Api <a asp-area="Admin" asp-controller="Home" asp-action="GenerateReports" title="Explore"><i class="fa-solid fa-square-arrow-up-right"></i> </a></ul>
+            </p>
+        </section>
+    }
+
+    @if (ViewBag.CurrentUser == "Manager")
+    {
+        <section class="title-card">
+            <h3>Welcome, Manager 👋</h3><br />
+            <p>
+                <ul>✅ You can create tasks</ul>
+                <ul>✅ You can view task updates</ul>
+                <ul>❌ Access to <strong>Admin and Developer pages is restricted.</strong> </ul>
+            </p>
+        </section>
+    }
+
+    @if (ViewBag.CurrentUser == "Developer")
+    {
+        <section class="title-card">
+            <h3>Welcome, Dev 👋</h3><br />
+            <p>
+                <ul>✅ Update Task status <a asp-area="Developer" asp-controller="Home" asp-action="Index" title="Explore"><i class="fa-solid fa-square-arrow-up-right"></i> </a></ul>
+            </p>
+        </section>
+    }
+    
+</div>

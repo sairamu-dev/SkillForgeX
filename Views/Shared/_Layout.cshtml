@@ -1,0 +1,206 @@
+﻿@{
+    string userName = User.FindFirst(System.Security.Claims.ClaimTypes.Name)?.Value;
+    string role = User.FindFirst(System.Security.Claims.ClaimTypes.Role) ?.Value;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="~/favicon.ico" />
+
+    <title>@ViewData["Title"]</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/DevTaskFlow.styles.css" asp-append-version="true" />
+    @* used font style *@
+    <link rel="stylesheet" href="~/css/font-family.css" />
+    @* contain sidepanel & main UI page *@
+    <link rel="stylesheet" href="~/css/NAVStyleSheet.css" asp-append-version="true" /> 
+    @* used for font awesome icons *@
+    <link rel="stylesheet" href="~/css/font-awesome-icons.min.css" />
+
+
+    <style>
+        .active-sidebar-item {
+            color: var(--primary)!important;
+            border-left-color: var(--primary);
+            background: #0f073031;
+            box-shadow: 0 0 8px var(--primary);
+            outline: none;
+        }
+
+        .rotate-90 {
+            transform: rotate(90deg);
+            transition: transform 0.3s ease;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="layout-wrapper" id="layoutWrapper">
+        <aside class="sidebar bg-dark text-white d-flex flex-column" id="sidebar">
+            <!-- First Section: Logo + Close Button -->
+            <div class="logo-close">
+                <div class="logo">
+                    <img src="~/favicon.ico" alt="Logo" />
+                    <a class="navbar-brand ms-2 text-white" asp-area="" asp-controller="Home" asp-action="Dashboard">DevTaskFlow</a>
+                </div>
+                <button type="button" id="navCloseBtn" class="btn btn-sm btn-outline-light" aria-label="Close sidebar" title="close sidebar">
+                    <i class="fa fa-chevron-left ms-auto"></i>
+                </button>
+            </div>
+
+            <!-- Second Section: User img + username / message icon + logout icon -->
+            <div class="user-section px-3">
+                <div class="user-info">
+                    <img src="~/images/person-circle.svg" alt="User" class="user-pic" />
+                    <span class="user-name" style="color:white">@userName <span class="badge bg-danger" style="font-size: x-small;">@role</span></span>
+                </div>
+                <div class="action-buttons">
+                    <a asp-area=""
+                       asp-controller="Home"
+                       asp-action="Notifications"
+                       class="btn btn-outline-light btn-sm"
+                       aria-label="Notifications"
+                       title="Notifications" style="font-size: xx-small; color:@(ViewBag.CurrentPage == "Notifications" ? "black" : ""); background-color:@(ViewBag.CurrentPage == "Notifications" ? "White" : "");">
+                        <i class="fa fa-envelope"> Notifications</i>
+                    </a>
+                    |
+                    <a asp-area=""
+                       asp-controller="Home"
+                       asp-action="Logout"
+                       class="btn btn-outline-light btn-sm"
+                       aria-label="Logout"
+                       title="Logout" style="font-size: xx-small">
+                        <i class="fa fa-sign-out-alt"> Logout</i>
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- Third Section: Menu -->
+            <nav class="flex-grow-1 overflow-auto p-3">
+                <ul class="list-unstyled">
+                    <li>
+                        <a asp-area="" asp-controller="Home" asp-action="Dashboard" class="d-block text-decoration-none mb-2 @(ViewBag.CurrentPage == "Dashboard" ? "active-sidebar-item" : "")">
+                            <i class="fa fa-tachometer-alt me-2"></i> Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <button class="btn btn-toggle align-items-center rounded collapsed mb-2 w-100 text-start @(ViewBag.CurrentPage == "Admin" ? "active-sidebar-item" : "collapsed")"
+                                data-bs-toggle="collapse" data-bs-target="#adminMenu" aria-expanded="@(ViewBag.CurrentPage == "Admin" ? "true" : "false")" aria-controls="adminMenu">
+                            <i class="fas fa-user-lock" title="Admin" style="margin-right:5px"></i> Admin
+                            <i class="fa fa-chevron-right ms-auto @(ViewBag.CurrentPage == "Admin" ? "rotate-90" : "")"></i>
+                        </button>
+                        <div class="collapse @(ViewBag.CurrentPage == "Admin" ? "show" : "")" id="adminMenu">
+                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ps-3">
+                                <li><a asp-area="Admin" asp-controller="Home" asp-action="Tasks" class="link-white text-decoration-none @(ViewBag.CurrentTab == "OverrideTask" ? "active-sidebar-item" : "")">Update / Override Tasks</a></li>
+                                <li><a asp-area="Admin" asp-controller="Home" asp-action="GenerateReports" class="link-white text-decoration-none @(ViewBag.CurrentTab == "GenerateReport" ? "active-sidebar-item" : "")">Generate Reports</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="btn btn-toggle align-items-center rounded collapsed mb-2 w-100 text-start @(ViewBag.CurrentPage == "Manager" ? "active-sidebar-item" : "collapsed")"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#managerMenu"
+                                aria-expanded="@(ViewBag.CurrentPage == "Manager" ? "true" : "false")"
+                                aria-controls="managerMenu">
+                            <i class="fas fa-briefcase" title="Manager" style="margin-right:5px"></i>
+                            Manager
+                            <i class="fa fa-chevron-right ms-auto @(ViewBag.CurrentPage == "Manager" ? "rotate-90" : "")"></i>
+                        </button>
+                        <div class="collapse @(ViewBag.CurrentPage == "Manager" ? "show" : "")" id="managerMenu">
+                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ps-3">
+                                <li><a asp-area="Manager" asp-controller="Home" asp-action="Index" class="link-white text-decoration-none @(ViewBag.CurrentPage == "Manager" ? "active-sidebar-item" : "")">View / Create Tasks</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <button class="btn btn-toggle align-items-center rounded collapsed mb-2 w-100 text-start @(ViewBag.CurrentPage == "Developer" ? "active-sidebar-item" : "collapsed")"
+                                data-bs-toggle="collapse" data-bs-target="#developerMenu" aria-expanded="@(ViewBag.CurrentPage == "Developer" ? "true" : "false")" aria-controls="developerMenu">
+                            <i class="fas fa-laptop-code" title="Developer" style="margin-right:5px"></i>
+                            Developer
+                            <i class="fa fa-chevron-right ms-auto @(ViewBag.CurrentPage == "Developer" ? "rotate-90" : "")"></i>
+                        </button>
+                        <div class="collapse @(ViewBag.CurrentPage == "Developer" ? "show" : "")" id="developerMenu">
+                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ps-3">
+                                <li><a asp-area="Developer" asp-controller="Home" asp-action="Index" class="link-white text-decoration-none @(ViewBag.CurrentPage == "Developer" ? "active-sidebar-item" : "")">View Tasks</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Home" asp-action="Feedback" class="d-block text-decoration-none mb-2 @(ViewBag.CurrentPage == "Feedback" ? "active-sidebar-item" : "")">
+                            <i class="fa-solid fa-ticket"></i> Ping Me
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Home" asp-action="ProjectOverview" class="d-block text-decoration-none mb-2 @(ViewBag.CurrentPage == "ProjectOverview" ? "active-sidebar-item" : "")">
+                            <i class="fa fa-info-circle me-2"></i> Project Overview
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <section class="content-area">
+                @RenderBody()
+            </section>
+        </main>
+    </div>
+
+    <!-- Sidebar open button -->
+    <button id="navOpenBtn"
+            class="btn btn-primary"
+            aria-label="Open sidebar"
+            style="display:none; position: fixed; top: 15px; left: 15px; z-index: 1050;background-color: #2c3e50;" title="open sidebar">
+        <i class="fa fa-chevron-right ms-auto"></i>
+    </button>
+    <footer class="footer text-muted text-center py-3" style="width: 105% !important;line-height: 1% !important">
+        <div class="container">
+            &copy; 2025 - DevTaskFlow
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        $(function () {
+            var $sidebar = $('#sidebar');
+            var $layoutWrapper = $('.layout-wrapper');
+            var $navOpenBtn = $('#navOpenBtn');
+            var $navCloseBtn = $('#navCloseBtn');
+
+            // CLOSE: Hide sidebar and show the open button
+            $navCloseBtn.on('click', function () {
+                $sidebar.addClass('sidebar-collapsed');
+                $layoutWrapper.addClass('sidebar-collapsed');
+                $navOpenBtn.show().focus();
+            });
+
+            // OPEN: Show sidebar and hide the open button
+            $navOpenBtn.on('click', function () {
+                $sidebar.removeClass('sidebar-collapsed');
+                $layoutWrapper.removeClass('sidebar-collapsed');
+                $navOpenBtn.hide();
+                // Optionally focus nav item or logo
+                $sidebar.find('a,button').first().focus();
+            });
+
+            // Hide open button if sidebar is open at start
+            if (!$sidebar.hasClass('sidebar-collapsed')) {
+                $navOpenBtn.hide();
+            }
+        });
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Access Denied";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh; width: 100%;">
+    <div class="text-center">
+        <h1 class="display-4 text-danger">
+            <i class="fas fa-exclamation-triangle"></i> 401
+        </h1>
+        <h3 class="mb-3">Unauthorized Access</h3>
+        <p class="text-muted">
+            You do not have the necessary permissions to view this page.<br>
+            Please log in with appropriate credentials or contact your administrator.
+        </p>
+
+        <div class="mt-4">
+            <a class="btn btn-primary me-2" href="/Home/Dashboard">
+                Go to Home
+            </a>
+        </div>
+    </div>
+</div>
+

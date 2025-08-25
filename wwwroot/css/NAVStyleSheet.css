@@ -1,0 +1,284 @@
+﻿:root {
+    --bg: #f8f9fa; /* Light gray background */
+    --surface: #2c3e50; /* Dark Blue Gray sidebar */
+    --primary: #007bff; /* Bootstrap Blue */
+    --secondary: #6c757d; /* Medium Gray */
+    --accent: #17a2b8; /* Teal accent */
+    --glow: none;
+    --text: #212529; /* Dark text */
+    --muted: #6c757d; /* Muted text */
+}
+
+body {
+    background: var(--bg);
+    min-height: 100vh;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    color: var(--text);
+    letter-spacing: 0.02em;
+    overflow-x: hidden;
+}
+
+.layout-wrapper {
+    display: flex;
+    min-height: 100vh;
+    transition: margin-left 0.3s ease;
+}
+
+/* ---------------- SIDEBAR (default/desktop) -------------- */
+.sidebar {
+    background: var(--surface);
+    width: 260px;
+    min-width: 220px;
+    max-width: 320px;
+    padding: 15px 15px;
+    box-shadow: 10px 0 40px #000b2dcc;
+    display: flex;
+    flex-direction: column;
+    border-right: 2px solid var(--primary);
+    position: relative;
+    z-index: 1040;
+    transition: transform 0.3s ease;
+}
+
+    /* Collapsed state (desktop only, not mobile). Optional. */
+    .sidebar.sidebar-collapsed {
+        position: absolute;
+        left: -260px;
+        top: 0;
+        height: 100%;
+        pointer-events: none;
+        transition: all 0.3s ease;
+    }
+
+.main-content {
+    flex-grow: 1;
+    width: calc(100% - 260px);
+    transition: all 0.3s ease;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.layout-wrapper.sidebar-collapsed .main-content {
+    margin-left: 0;
+    width: 100%;
+}
+
+/* ------------ SIDEBAR NAV & BUTTONS ------------- */
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+    .sidebar nav ul li a,
+    .sidebar nav ul li button.btn-toggle {
+        font-family: 'Orbitron', Arial, sans-serif;
+        font-weight: 600;
+        font-size: 0.85rem;
+        color: var(--muted);
+        text-decoration: none;
+        padding: 10px 15px;
+        border-left: 4px solid transparent;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: transparent;
+        border: none;
+        width: 100%;
+        cursor: pointer;
+        transition: all 0.22s ease;
+    }
+
+        .sidebar nav ul li a:hover,
+        .sidebar nav ul li a.active,
+        .sidebar nav ul li button.btn-toggle:hover,
+        .sidebar nav ul li button.btn-toggle:focus {
+            color: var(--primary);
+            border-left-color: var(--primary);
+            background: #0f073031;
+            box-shadow: 0 0 8px var(--primary);
+            outline: none;
+        }
+
+.btn-toggle i.fa-chevron-right {
+    transition: transform 0.3s;
+}
+
+.btn-toggle[aria-expanded="true"] i.fa-chevron-right {
+    transform: rotate(90deg);
+}
+
+/* ------------------ SIDEBAR HEADER & USER -------------- */
+.logo-close {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--primary);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+    .logo-close .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .logo-close img {
+        height: 30px;
+    }
+
+.user-section {
+    border-bottom: 1px solid var(--primary);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.user-pic {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-name {
+    font-weight: 600;
+    font-family: 'Orbitron', Arial, sans-serif;
+    color: var(--text);
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+    .action-buttons button {
+        width: 48%;
+        font-size: 1.2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.2rem 0;
+    }
+
+/* -------------- NAVBAR and CONTENT AREA --------- */
+.navbar {
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    padding: 15px 30px;
+    color: #fff;
+    font-family: 'Orbitron', Arial, sans-serif;
+    font-weight: 700;
+    font-size: 1.28rem;
+    letter-spacing: 2px;
+    box-shadow: 0 6px 18px var(--glow);
+    display: flex;
+    align-items: center;
+    min-height: 66px;
+}
+
+.content-area {
+    padding: 5px 5px;
+    min-height: calc(100vh - 66px);
+    color: var(--text);
+}
+
+/* ------- COLLAPSE/COLLAPSIBLE MENU ----------- */
+.sidebar .collapse {
+    overflow: hidden !important;
+    max-height: 0;
+    transition: max-height 0.3s ease;
+}
+
+    .sidebar .collapse.show {
+        max-height: 500px;
+    }
+
+/* ------------- MOBILE/RESPONSIVE SIDEBAR ------------ */
+@media (max-width: 900px) {
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100vh;
+        width: 80vw;
+        max-width: 320px;
+        min-width: 180px;
+        transform: translateX(-100%);
+        transition: transform 0.3s;
+        z-index: 1200;
+        border-right: 2px solid var(--primary);
+        border-bottom: none;
+        box-shadow: 2px 0 12px #2228;
+        flex-direction: column;
+        padding: 15px 15px;
+    }
+
+        .sidebar.sidebar-open {
+            transform: translateX(0);
+        }
+
+    .main-content {
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+
+    .layout-wrapper {
+        flex-direction: column;
+        margin-left: 0 !important;
+    }
+
+    .navbar {
+        font-size: 1.1rem;
+        padding: 12px 20px;
+    }
+
+    .content-area {
+        padding: 24px 20px;
+        min-height: auto;
+    }
+    /* Hamburger (open button) visible */
+    #navOpenBtn {
+        display: block;
+        position: fixed;
+        top: 16px;
+        left: 16px;
+        z-index: 1300;
+    }
+    /* Nav list stays vertical (never horizontal on mobile!) */
+    .sidebar nav ul {
+        flex-direction: column;
+        gap: 18px;
+        margin: 15px 0 0 0;
+    }
+}
+
+/* ---- Optional: Overlay when sidebar open on mobile ---- */
+@media (max-width: 900px) {
+    .sidebar-backdrop {
+        display: none;
+        position: fixed;
+        z-index: 1199;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.25);
+    }
+
+    .sidebar.sidebar-open ~ .sidebar-backdrop {
+        display: block;
+    }
+}
+

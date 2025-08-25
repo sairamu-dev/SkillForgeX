@@ -1,0 +1,48 @@
+﻿
+<style>
+    /* Side panel with iframe styles */
+    #sidePanelIframe {
+        position: fixed;
+        top: 0;
+        right: -60%; /* Hidden by default */
+        width: 60%;
+        height: 100vh;
+        border: none;
+        box-shadow: -3px 0 6px rgba(0,0,0,0.3);
+        transition: right 0.3s ease-in-out;
+        z-index: 1050;
+        background: white;
+    }
+
+    #overlayBackdrop {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 1040;
+    }
+</style>
+
+<iframe id="sidePanelIframe" src=""></iframe>
+<div id="overlayBackdrop" onclick="closeSidePanel()"></div>
+
+<script>
+    function openSidePanel(url) {
+        const iframe = document.getElementById('sidePanelIframe');
+        iframe.src = url;  // load your side panel page here
+        iframe.style.right = '0';
+        document.getElementById('overlayBackdrop').style.display = 'block';
+    }
+
+    function closeSidePanel() {
+        const iframe = document.getElementById('sidePanelIframe');
+        iframe.style.right = '-60%';
+        iframe.src = ''; // optionally clear src to stop loading
+        document.getElementById('overlayBackdrop').style.display = 'none';
+        location.reload();
+    }
+
+</script>

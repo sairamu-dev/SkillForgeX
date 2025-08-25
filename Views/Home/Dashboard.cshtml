@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .dashboard-container {
+        display: flex;
+        gap: 30px;
+    }
+    .card {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        padding: 32px 40px;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        min-width: 220px;
+    }
+
+    .icon {
+        font-size: 2.7rem;
+        color: #4154f1;
+        background: #e4e8ff;
+        padding: 18px;
+        border-radius: 50%;
+    }
+
+    .card-details {
+        display: flex;
+        flex-direction: row;
+    }
+</style>
+
+<body>
+    <div class="main-content" style="margin:2% 0% 0% 5%;max-width:90%">
+        <h1>@ViewData["Title"]</h1>
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span>@TempData["ErrorMessage"]</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        <div class="dashboard-container mt-5" >
+            <div class="card">
+                <i class="icon fas fa-tasks"></i>
+                <div class="card-details">
+                    <span class="card-title" style="margin:5px">Ongoing Tasks:</span>
+                    <span class="card-value" style="margin:5px">@ViewBag.NoOfTasks</span>
+                </div>
+            </div>
+            <div class="card">
+                <i class="icon fas fa-user-cog"></i>
+                <div class="card-details">
+                    <span class="card-title" style="margin:5px">Developers:</span>
+                    <span class="card-value" style="margin:5px">@ViewBag.NoofUsers</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+

@@ -1,0 +1,197 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+@media (max-width: 700px) {
+
+    .dev-users-card {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 6px 28px rgba(40, 48, 85, 0.1);
+        max-width: 90%;
+        margin: 30px auto;
+        padding: 30px 40px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #262626;
+    }
+
+    #header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    #header h1 {
+        font-size: 1.35rem !important;
+    }
+
+    #btnTaskCreate {
+        width: 100%;
+        font-size: 1rem;
+        padding: 11px 0;
+    }
+
+    .dev-users-table,
+    .dev-users-table thead,
+    .dev-users-table tbody,
+    .dev-users-table tr {
+        display: block;
+        width: 100%;
+    }
+
+        .dev-users-table thead {
+            display: none; /* hide table header on mobile */
+        }
+
+        .dev-users-table tbody tr {
+            background: #fff;
+            box-shadow: 0 2px 14px rgba(65,84,241,0.07);
+            margin-bottom: 22px;
+            border: 1px solid #eef0fa;
+            border-radius: 9px;
+            padding: 12px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .dev-users-table td {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: none !important;
+            padding: 10px 3px;
+            font-size: 1rem;
+            position: relative;
+        }
+
+            .dev-users-table td:before {
+                content: attr(data-label);
+                font-size: 0.94rem;
+                font-weight: 600;
+                color: #4154f1;
+                flex: 0 0 110px;
+                text-align: left;
+                margin-right: 8px;
+            }
+            /* Last cell (Skills), allow wrapping text */
+            .dev-users-table td:last-child {
+                flex-wrap: wrap;
+            }
+        /* The task count button on mobile is easier/bigger */
+        .dev-users-table .btn-outline-danger {
+            font-size: 1rem;
+            padding: 8px 20px 8px 12px;
+        }
+}
+
+/* Optionally hide the “No users found” row's :before content on mobile */
+@media (max-width: 700px) {
+    .dev-users-table td[colspan="5"]:before {
+        display: none;
+    }
+}
+
+.dev-users-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 6px 28px rgba(40, 48, 85, 0.1);
+    max-width: 90%;
+    margin: 30px auto;
+    padding: 30px 40px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #262626;
+}
+
+.dev-users-card h1 {
+    font-weight: 700;
+    font-size: 2rem;
+    color: #4154f1;
+    margin: 0;
+}
+
+.dev-users-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    background: #fff;
+    margin-top: 24px;
+}
+
+    .dev-users-table thead tr {
+        background: linear-gradient(90deg, #4154f1 70%, #7a81ff 100%);
+        color: #fff;
+    }
+
+    .dev-users-table thead th {
+        border: none;
+        padding: 18px 16px;
+        font-weight: 600;
+        font-size: 1.15rem;
+        text-align: center;
+    }
+
+    .dev-users-table tbody tr {
+        transition: background-color 0.15s ease-in-out;
+        cursor: default;
+    }
+
+        .dev-users-table tbody tr:hover {
+            background-color: #f4f6ff;
+            box-shadow: 0 1px 10px rgba(65, 84, 241, 0.07);
+        }
+
+    .dev-users-table td {
+        padding: 14px 12px;
+        vertical-align: middle;
+        border-top: 1px solid #eef0fa;
+        font-size: 1rem;
+        text-align: center;
+    }
+
+        .dev-users-table td:first-child {
+            text-align: left;
+        }
+
+    .dev-users-table .btn-outline-danger {
+        border: 1px solid #ff5e5e;
+        color: #ff5e5e;
+        background-color: #faf7f6;
+        font-weight: 500;
+        border-radius: 25px;
+        padding: 5px 18px 5px 10px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+        font-size: 0.95rem;
+    }
+
+        .dev-users-table .btn-outline-danger:hover {
+            background-color: #ff5e5e;
+            color: #fff;
+            border-color: #ff5e5e;
+        }
+
+        .dev-users-table .btn-outline-danger img {
+            filter: grayscale(20%);
+        }

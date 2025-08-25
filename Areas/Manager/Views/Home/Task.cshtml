@@ -1,0 +1,237 @@
+﻿@using DevTaskFlow.Areas.Manager.ViewModels;
+@model CreateTaskViewmodel
+
+@{
+    Layout = null;
+}
+
+<head>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    @* loading spinner *@
+    <script src="~/js/waitMe.min.js"></script>
+    <link rel="stylesheet" href="~/css/waitMe.css" />
+
+    <style>
+        body {
+            background: #f4f6fb !important;
+            /* For fullscreen backgrounds (optional in side-panels) */
+        }
+        .task-form-card {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(65,84,241,0.11);
+            padding: 40px 30px 32px 30px;
+            max-width: 90%;
+            margin: 36px auto 0 auto;
+            min-width: 90%;
+        }
+        .task-form-card h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            color: #26326a;
+        }
+        .close-btn-x {
+            background: transparent;
+            border: none;
+            font-size: 2.2rem;
+            color: #6366F1;
+            font-weight: 400;
+            transition: color .18s;
+            line-height: 1;
+        }
+        .close-btn-x:hover {
+            color: #f14836;
+        }
+        .form-group label {
+            font-weight: 500;
+            color: #334155;
+        }
+        /* For required stars */
+        .form-group .required-star {
+            color: #f14836;
+            font-size: larger;
+            margin-left: 2px;
+        }
+        .select2-container--default .select2-selection--multiple {
+            border-radius: 8px;
+            border-color: #dbeafe;
+            min-height: 40px;
+        }
+        .select2-container .select2-selection--multiple .select2-selection__rendered {
+            padding: 5px 8px;
+        }
+        .form-control, .form-select, .select2-selection {
+            border-radius: 8px !important;
+            border-color: #dbeafe !important;
+            box-shadow: none;
+            transition: border-color .18s;
+        }
+        .form-control:focus, .form-select:focus, .select2-selection:focus {
+            border-color: #4154f1 !important;
+            box-shadow: 0 0 0 1.5px #4154f181;
+        }
+        .btn-outline-success {
+            border-radius: 8px;
+            min-width: 90px;
+            font-weight: 500;
+            letter-spacing: .3px;
+        }
+        .btn-outline-danger {
+            border-radius: 8px;
+            min-width: 90px;
+            font-weight: 500;
+        }
+        /* Spacing for radio buttons */
+        .form-check-inline {
+            margin-right: 16px;
+        }
+        /* Alerts */
+        .alert {
+            border-radius: 8px;
+            box-shadow: 0 2px 14px rgba(80, 93, 153, 0.06);
+        }
+
+    </style>
+</head>
+
+<div class="task-form-card" id="taskCreate">
+
+    <div style="display:flex;justify-content:space-between;align-items:center; margin-bottom:28px;">
+        <div>
+            <h1>Create</h1>
+        </div>
+        <div>
+            <button onclick="parent.closeSidePanel()" class="close-btn-x" aria-label="Close">&times;</button>
+        </div>
+    </div>
+
+    @if (ViewBag.ValidationErrorMessage != null)
+    {
+        var errors = ViewBag.ValidationErrorMessage as List<string>;
+        if (errors != null && errors.Any())
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <ul class="mb-0">
+                    @foreach (var error in errors)
+                    {
+                        <li>@error</li>
+                    }
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+    }
+
+    @if (ViewBag.SuccessMessage != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <span>@ViewBag.SuccessMessage</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <span>@ViewBag.ErrorMessage</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <form asp-action="Task" asp-controller="Home" asp-area="Manager" method="post">
+
+        <!-- Project Dropdown -->
+        <div class="form-group row mb-3">
+            <div class="col-sm-3 d-flex align-items-center">
+                <label class="col-form-label me-1">@Html.DisplayNameFor(m => m.ProjectID)</label>
+                <span class="required-star" title="please select the project">*</span>
+            </div>
+            <div class="col-sm-9">
+                @Html.DropDownListFor(m => m.ProjectID, Model.Projects, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <!-- Title -->
+        <div class="form-group row mb-3">
+            <div class="col-sm-3 d-flex align-items-center">
+                <label class="col-form-label me-1">@Html.DisplayNameFor(m => m.Title)</label>
+                <span class="required-star" title="please enter the bug title">*</span>
+            </div>
+            <div class="col-sm-9">
+                @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <!-- Description -->
+        <div class="form-group row mb-3">
+            <div class="col-sm-3 d-flex align-items-center">
+                <label class="col-form-label me-1">@Html.DisplayNameFor(m => m.Description)</label>
+                <span class="required-star" title="please enter the bug detailed issue">*</span>
+            </div>
+            <div class="col-sm-9">
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", rows = "4" })
+            </div>
+        </div>
+
+        <!-- Priority (Radio Buttons) -->
+        <div class="form-group row mb-3">
+            <div class="col-sm-3 d-flex align-items-center">
+                <label class="col-form-label me-1">@Html.DisplayNameFor(m => m.Priority)</label>
+                <span class="required-star" title="please select the bug priority level">*</span>
+            </div>
+            <div class="col-sm-9">
+                @foreach (var item in Model.PriorityList)
+                {
+                    <div class="form-check form-check-inline">
+                        @Html.RadioButtonFor(m => m.Priority, item.Value, new { @class = "form-check-input", id = "priority_" + item.Value })
+                        <label class="form-check-label" for="@("priority_" + item.Value)">@item.Text</label>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Enddate -->
+        <div class="form-group row mb-3">
+            <div class="col-sm-3 d-flex align-items-center">
+                <i class="fa fa-calendar-alt me-2" aria-hidden="true"></i>
+                <label class="col-form-label me-1"><b>End date:</b></label>
+                <span class="required-star" title="please select the end date">*</span>
+            </div>
+            <div class="col-sm-9">
+                <input type="date" class="form-control" name="EndDate" value="@DateTime.Now.ToString("yyyy-MM-dd")" min="@DateTime.Now.ToString("yyyy-MM-dd")" />
+            </div>
+        </div>
+
+        <!-- Save / Cancel Buttons -->
+        <div class="form-group row mt-4">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-9">
+                <button type="submit" class="btn btn-outline-success" @((ViewBag.SuccessMessage != null) ? "disabled" : "") onclick="EnableSpinner()">Save</button>
+                <button type="button" class="btn btn-outline-danger ms-2" onclick="parent.closeSidePanel()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#taskCreate').waitMe('hide');
+    });
+
+    function EnableSpinner(){
+        debugger;
+        $('#taskCreate').waitMe({
+            effect: 'ios',
+            text: 'Please wait.....',
+            bg: 'rgba(255, 255, 255, 0.7)',
+            color: '#000'
+        });
+    }
+</script>
+
+

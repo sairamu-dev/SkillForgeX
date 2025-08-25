@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "Generate reports";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_sidePanelLayout")
+
+<style>
+    .title-card {
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 8px 32px rgba(65, 84, 241, 0.11);
+        padding: 32px 28px 26px 28px;
+        font-family: 'Open Sans', Verdana, Geneva, Tahoma, sans-serif;
+        color: #1e293b;
+        line-height: 1.6;
+        margin-bottom: 26px;
+    }
+</style>
+
+<div class="title-card" style="margin:1% 0% 0% 5%;max-width:90%">
+    <div id="header" style="display: flex; align-items: center; margin-bottom: 3%;">
+        <div>
+            <h1>Generate Reports</h1>
+        </div>
+        <div style="margin-left: auto;">
+            <button type="button" id="btnTaskCreate"
+                    onclick="openSidePanel('@Url.Action("Api", "Home", new { area = "Admin" })')"
+                    class="btn btn-primary">
+                Api <i class="fas fa-edit"></i>
+            </button>
+        </div>
+    </div>
+
+
+    <section class="title-card">
+        <h3>Welcome, Admin 👋</h3><br />
+        <ul>
+            <li>
+                ✅ Get bug reports
+                <a href="@Url.Action("GetErrorLogs", "Home", new { area = "Admin" })" title="Error Logs">
+                    <i class="fa-solid fa-download"></i>
+                </a>
+            </li>
+            <li>
+                ✅ Get user feedbacks
+                <a href="@Url.Action("GetFeedbacks", "Home", new { area = "Admin" })" title="Feedbacks">
+                    <i class="fa-solid fa-download"></i>
+                </a>
+            </li>
+            <li>
+                ✅ Get API Quota detail
+                <a href="@Url.Action("GetApiQuotaDetail", "Home", new { area = "Admin" })" title="API Quota Detail">
+                    <i class="fa-solid fa-download"></i>
+                </a>
+            </li>
+        </ul>
+
+
+
+    </section>
+
+</div>
