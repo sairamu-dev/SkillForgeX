@@ -287,11 +287,11 @@
 
         function drawChart() {
             const data = google.visualization.arrayToDataTable([
-                ['Task', 'Completion', 'ID'],
-        @foreach (var item in ViewBag.ChartData)
-        {
-            <text>['@item.Label', @item.Percentage, '@item.ID'],</text>
-        }
+                    ['Task', 'Completion', { role: 'tooltip' }, 'ID'],
+                    @foreach (var item in ViewBag.ChartData)
+                    {
+                        <text>['@item.Label', @item.Percentage, 'Tap to see more detail', '@item.ID'],</text>
+                    }
                 ]);
 
             const options = {
@@ -308,7 +308,7 @@
                 if (selection.length > 0) {
                     const row = selection[0].row;
                     const label = data.getValue(row, 0);
-                    const id = data.getValue(row, 2);
+                    const id = data.getValue(row, 3);
                     showDetails(id);
                 }
             });

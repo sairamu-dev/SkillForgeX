@@ -127,6 +127,9 @@ namespace DevTaskFlow.Controllers
                     ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
                 });
 
+            if(currentUser.Role == "Guest")
+                return RedirectToAction("Notifications");
+
             return RedirectToAction("Dashboard");
         }
 

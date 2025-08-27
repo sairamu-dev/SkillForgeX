@@ -17,6 +17,7 @@ namespace DevTaskFlow.Areas.Developer.Controllers
         private readonly UserService _userService;
         private readonly AppDbContext _context;
         private readonly IMapper _mapper;
+        private static readonly object _taskUpdateLock = new object();
 
         public HomeController(PortalRoleService portalRoleService, UserService userService, AppDbContext appDbContext, IMapper mapper)
         {
@@ -67,28 +68,35 @@ namespace DevTaskFlow.Areas.Developer.Controllers
         [HttpPost]
         public IActionResult Index(UserTaskViewModel userTask)
         {
-            using var transaction = _context.Database.BeginTransaction();
-
-            try
+            lock (_taskUpdateLock)
             {
-                _portalRoleService.UpdateDevTask(_mapper.Map<Tasks>(userTask));
-                int DevID = GetUser();
-                var user = _userService.GetDevUsers().Where(x => x.ID == DevID).FirstOrDefault();
-                user.ConcurrentTask = (user.ConcurrentTask - 1);
-                user.ModifiedBy = DevID;
+                using var transaction = _context.Database.BeginTransaction();
 
-                _userService.UpdateTaskForDevUser(user);
+                try
+                {
+                    _portalRoleService.UpdateDevTask(_mapper.Map<Tasks>(userTask));
 
-                TempData["SuccessMessage"] = $"The '{userTask.Title}' - task under the '{userTask.ProjectName}' project status has been updated.";
+                    if (userTask.Status == "In-Queue" || userTask.Status == "Completed")
+                    {
+                        int DevID = GetUser();
+                        var user = _userService.GetDevUsers().Where(x => x.ID == DevID).FirstOrDefault();
+                        user.ConcurrentTask -= 1;
+                        user.ModifiedBy = DevID;
 
-                _context.SaveChanges();
-                transaction.Commit();
+                        _userService.UpdateTaskForDevUser(user);
+                    }
 
-            }
-            catch (Exception eq)
-            {
-                transaction.Rollback();
-                TempData["ErrorMessage"] = $"error occured while processing your request - {eq.Message}";
+                    TempData["SuccessMessage"] = $"The {userTask.Title} - task under the {userTask.ProjectName} project status has been updated.";
+
+                    _context.SaveChanges();
+                    transaction.Commit();
+
+                }
+                catch (Exception eq)
+                {
+                    transaction.Rollback();
+                    TempData["ErrorMessage"] = $"error occured while processing your request - {eq.Message}";
+                }
             }
 
             ViewBag.CurrentPage = "Developer";

@@ -23,6 +23,7 @@ namespace DevTaskFlow.Areas.Admin.Controllers
         private readonly ErrorService _errorService;
         private readonly AppDbContext _context;
         private readonly IMapper _mapper;
+        private static readonly object _taskUpdateLock = new object();
 
         public HomeController(PortalRoleService portalRoleService,UserService userService, ErrorService errorService, IMapper mapper, AppDbContext context)
         {
@@ -84,71 +85,68 @@ namespace DevTaskFlow.Areas.Admin.Controllers
 
             var prevTask = _portalRoleService.GetTasks().Where(x => x.TaskID == taskViewModel.TaskID).FirstOrDefault();
 
-            if (taskViewModel.Status == "In-Queue" || taskViewModel.Status == "Completed")
+            lock (_taskUpdateLock) // prevents multiple threads entering at once
             {
-                _portalRoleService.OverrideTask(_mapper.Map<Tasks>(taskViewModel));
-                UsersViewModel users = _mapper.Map<UsersViewModel>(_userService.GetDevUsers().Where(x => x.ID == prevTask.AssignedTo).FirstOrDefault());
-                users.ConcurrentTask = users.ConcurrentTask ?? 0;
-                users.ConcurrentTask -= 1;
-                users.ModifiedBy = (int)Manager.ViewModels.PortalRoles.Admin;
-                _userService.UpdateTaskForDevUser(_mapper.Map<User>(users));
-
-                _context.SaveChanges();
-                ViewBag.SuccessMessage = taskViewModel.Status == "In-Queue" ? "Task has been put on hold" : "Task has been completed";
-            }
-            else if(prevTask.AssignedTo != taskViewModel.AssignedTo)
-            {
-                using var transaction = _context.Database.BeginTransaction();
-
-                try
+                if (taskViewModel.Status == "In-Queue" || taskViewModel.Status == "Completed")
                 {
-                    UsersViewModel currentUsers = _mapper.Map<UsersViewModel>(_userService.GetDevUsers().Where(x => x.ID == taskViewModel.AssignedTo).FirstOrDefault());
-                    currentUsers.ConcurrentTask = currentUsers.ConcurrentTask ?? 0;
+                    _portalRoleService.OverrideTask(_mapper.Map<Tasks>(taskViewModel));
 
-                    if (currentUsers.ConcurrentTask < 5)
+                    UsersViewModel users = _mapper.Map<UsersViewModel>(_userService.GetDevUsers().Where(x => x.ID == prevTask.AssignedTo).FirstOrDefault());
+                    users.ConcurrentTask = users.ConcurrentTask ?? 0;
+                    users.ConcurrentTask -= 1;
+                    users.ModifiedBy = (int)Manager.ViewModels.PortalRoles.Admin;
+                    _userService.UpdateTaskForDevUser(_mapper.Map<User>(users));
+
+                    _context.SaveChanges();
+                    ViewBag.SuccessMessage = taskViewModel.Status == "In-Queue" ? "Task has been put on hold" : "Task has been completed";
+                }
+                else if (prevTask.AssignedTo != taskViewModel.AssignedTo)
+                {
+                    using var transaction = _context.Database.BeginTransaction();
+
+                    try
                     {
-                        #region remove task from existing dev
+                        UsersViewModel currentUsers = _mapper.Map<UsersViewModel>(_userService.GetDevUsers().Where(x => x.ID == taskViewModel.AssignedTo).FirstOrDefault());
+                        currentUsers.ConcurrentTask = currentUsers.ConcurrentTask ?? 0;
 
-                        UsersViewModel prevUsers = _mapper.Map<UsersViewModel>(_userService.GetDevUsers().Where(x => x.ID == prevTask.AssignedTo).FirstOrDefault());
-                        prevUsers.ConcurrentTask = prevUsers.ConcurrentTask ?? 0;
-                        prevUsers.ConcurrentTask -= 1;
-                        prevUsers.ModifiedBy = (int)Manager.ViewModels.PortalRoles.Admin;
-                        _userService.UpdateTaskForDevUser(_mapper.Map<User>(prevUsers));
+                        if (currentUsers.ConcurrentTask < 5)
+                        {
+                            #region remove task from existing dev
 
-                        #endregion
+                            UsersViewModel prevUsers = _mapper.Map<UsersViewModel>(_userService.GetDevUsers().Where(x => x.ID == prevTask.AssignedTo).FirstOrDefault());
+                            prevUsers.ConcurrentTask = prevUsers.ConcurrentTask ?? 0;
+                            prevUsers.ConcurrentTask -= 1;
+                            prevUsers.ModifiedBy = (int)Manager.ViewModels.PortalRoles.Admin;
+                            _userService.UpdateTaskForDevUser(_mapper.Map<User>(prevUsers));
 
-                        #region add task for new dev
+                            #endregion
 
-                        currentUsers.ConcurrentTask += 1;
-                        currentUsers.ModifiedBy = (int)Manager.ViewModels.PortalRoles.Admin;
-                        _userService.UpdateTaskForDevUser(_mapper.Map<User>(currentUsers));
+                            #region add task for new dev
 
-                        _portalRoleService.OverrideTask(_mapper.Map<Tasks>(taskViewModel));
+                            currentUsers.ConcurrentTask += 1;
+                            currentUsers.ModifiedBy = (int)Manager.ViewModels.PortalRoles.Admin;
+                            _userService.UpdateTaskForDevUser(_mapper.Map<User>(currentUsers));
+                            _portalRoleService.OverrideTask(_mapper.Map<Tasks>(taskViewModel));
 
-                        _context.SaveChanges();
-                        transaction.Commit();
+                            _context.SaveChanges();
+                            transaction.Commit();
 
-                        ViewBag.SuccessMessage = $"The current task added for {currentUsers.UserName}";
+                            ViewBag.SuccessMessage = $"The current task added for {currentUsers.UserName}";
 
-                        #endregion
+                            #endregion
+                        }
+                        else
+                        {
+                            ViewBag.ErrorMessage = $"Unable to assign the task to {currentUsers.UserName} as they have reached their task limit.";
+                            return View(taskViewModel);
+                        }
                     }
-                    else
+                    catch (Exception eq)
                     {
-                        ViewBag.ErrorMessage = $"Unable to assign the task to {currentUsers.UserName} as they have reached their task limit.";
-                        return View(taskViewModel);
+                        transaction.Rollback();
+                        ViewBag.ErrorMessage = $"error occured while processing your request - {eq.Message}";
                     }
                 }
-                catch (Exception eq)
-                {
-                    transaction.Rollback();
-                    ViewBag.ErrorMessage = $"error occured while processing your request - {eq.Message}";
-                }
-            }
-            else if(prevTask.AssignedTo == taskViewModel.AssignedTo)
-            {
-                _portalRoleService.OverrideTask(_mapper.Map<Tasks>(taskViewModel));
-                _context.SaveChanges();
-                ViewBag.SuccessMessage = "Task has been updated successfully";
             }
 
             return View(taskViewModel);
@@ -311,6 +309,66 @@ namespace DevTaskFlow.Areas.Admin.Controllers
                     excelName
                 );
             }
+        }
+
+        public IActionResult GetTaskDeails()
+        {
+            List<TaskViewModel> tasks = _mapper.Map<List<TaskViewModel>>(_portalRoleService.GetTasks());
+
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Tasks");
+
+                // Add headers
+                worksheet.Cell(1, 1).Value  = "TaskID";
+                worksheet.Cell(1, 2).Value  = "ProjectID";
+                worksheet.Cell(1, 3).Value  = "Title";
+                worksheet.Cell(1, 4).Value  = "Description";
+                worksheet.Cell(1, 5).Value  = "Priority";
+                worksheet.Cell(1, 6).Value  = "EstimatedDays";
+                worksheet.Cell(1, 7).Value  = "RequiredSkills";
+                worksheet.Cell(1, 8).Value  = "Status";
+                worksheet.Cell(1, 9).Value  = "AssignedTo";
+                worksheet.Cell(1, 10).Value = "CreatedBy";
+                worksheet.Cell(1, 11).Value = "CreatedDate";
+                worksheet.Cell(1, 12).Value = "CompletePercentage";
+                worksheet.Cell(1, 13).Value = "EndDate";
+
+                // Fill data
+                for (int i = 0; i < tasks.Count; i++)
+                {
+                    worksheet.Cell(i + 2, 1).Value  =   tasks[i].TaskID;
+                    worksheet.Cell(i + 2, 2).Value  =   tasks[i].ProjectID;
+                    worksheet.Cell(i + 2, 3).Value  =   tasks[i].Title;
+                    worksheet.Cell(i + 2, 4).Value  =   tasks[i].Description;
+                    worksheet.Cell(i + 2, 5).Value  =   tasks[i].Priority;
+                    worksheet.Cell(i + 2, 6).Value  =   tasks[i].EstimatedDays;
+                    worksheet.Cell(i + 2, 7).Value  =   tasks[i].RequiredSkills;
+                    worksheet.Cell(i + 2, 8).Value  =   tasks[i].Status;
+                    worksheet.Cell(i + 2, 9).Value  =   tasks[i].AssignedTo;
+                    worksheet.Cell(i + 2, 10).Value =   tasks[i].CreatedBy;
+                    worksheet.Cell(i + 2, 11).Value =   tasks[i].CreatedDate;
+                    worksheet.Cell(i + 2, 12).Value =   tasks[i].CompletePercentage;
+                    worksheet.Cell(i + 2, 13).Value =   tasks[i].EndDate;
+                }
+
+                // Auto-fit columns
+                worksheet.Columns().AdjustToContents();
+
+                var stream = new MemoryStream();
+                workbook.SaveAs(stream);
+                stream.Position = 0;
+
+                string excelName = $"DevTaskFlow-Tasklists-{DateTime.Now:yyyy-MM-dd_HH:mm}.xlsx";
+
+                return File(
+                    stream,
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    excelName
+                );
+            }
+
+
         }
 
         #endregion

@@ -163,7 +163,7 @@
                 <span class="required-star" title="please enter the bug title">*</span>
             </div>
             <div class="col-sm-9">
-                @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.Title, new { @class = "form-control", maxlength = 75 })
             </div>
         </div>
 
@@ -174,7 +174,7 @@
                 <span class="required-star" title="please enter the bug detailed issue">*</span>
             </div>
             <div class="col-sm-9">
-                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", rows = "4" })
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", rows = "4", maxlength = 125 })
             </div>
         </div>
 

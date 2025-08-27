@@ -70,7 +70,7 @@
                 <span class="required-star" title="please enter the name" style="color:red">*</span>
             </div>
             <div class="col-sm-9">
-                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", maxlength = 50 })
             </div>
         </div>
 
@@ -81,7 +81,7 @@
                 <span class="required-star" title="please enter the email" style="color:red">*</span>
             </div>
             <div class="col-sm-9">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", maxlength = 100 })
             </div>
         </div>
 
@@ -92,7 +92,7 @@
                 <span class="required-star" title="please enter the report/suggestion" style="color:red">*</span>
             </div>
             <div class="col-sm-9">
-                @Html.TextAreaFor(m => m.Message, new { @class = "form-control", rows = "4" })
+                @Html.TextAreaFor(m => m.Message, new { @class = "form-control", rows = "4", maxlength = 250 })
             </div>
         </div>
 
