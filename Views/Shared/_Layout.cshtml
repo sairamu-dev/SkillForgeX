@@ -20,13 +20,14 @@
     <link rel="stylesheet" href="~/css/NAVStyleSheet.css" asp-append-version="true" /> 
     @* used for font awesome icons *@
     <link rel="stylesheet" href="~/css/font-awesome-icons.min.css" />
-    @* loading spinner *@
-    <link rel="stylesheet" href="~/css/waitMe.css" />
 
 
     <style>
         .active-sidebar-item {
             color: var(--primary)!important;
+            border-left-color: var(--primary);
+            background: #0f073031;
+            box-shadow: 0 0 8px var(--primary);
             outline: none;
         }
 
@@ -63,7 +64,7 @@
                        asp-action="Notifications"
                        class="btn btn-outline-light btn-sm"
                        aria-label="Notifications"
-                       title="Notifications" style="font-size: xx-small; inline-flex; align-items: center; color:@(ViewBag.CurrentPage == "Notifications" ? "black" : ""); background-color:@(ViewBag.CurrentPage == "Notifications" ? "White" : "");">
+                       title="Notifications" style="font-size: xx-small; color:@(ViewBag.CurrentPage == "Notifications" ? "black" : ""); background-color:@(ViewBag.CurrentPage == "Notifications" ? "White" : "");">
                         <i class="fa fa-envelope"> Notifications</i>
                     </a>
                     |
@@ -72,7 +73,7 @@
                        asp-action="Logout"
                        class="btn btn-outline-light btn-sm"
                        aria-label="Logout"
-                       title="Logout" style="font-size: xx-small; inline-flex; align-items: center;">
+                       title="Logout" style="font-size: xx-small">
                         <i class="fa fa-sign-out-alt"> Logout</i>
                     </a>
 
@@ -83,12 +84,12 @@
             <nav class="flex-grow-1 overflow-auto p-3">
                 <ul class="list-unstyled">
                     <li>
-                        <a asp-area="" asp-controller="Home" asp-action="Dashboard" class="d-block text-decoration-none mb-0 @(ViewBag.CurrentPage == "Dashboard" ? "active-sidebar-item" : "")">
+                        <a asp-area="" asp-controller="Home" asp-action="Dashboard" class="d-block text-decoration-none mb-2 @(ViewBag.CurrentPage == "Dashboard" ? "active-sidebar-item" : "")">
                             <i class="fa fa-tachometer-alt me-2"></i> Dashboard
                         </a>
                     </li>
                     <li>
-                        <button class="btn btn-toggle align-items-center rounded collapsed mb-0 w-100 text-start @(ViewBag.CurrentPage == "Admin" ? "active-sidebar-item" : "collapsed")"
+                        <button class="btn btn-toggle align-items-center rounded collapsed mb-2 w-100 text-start @(ViewBag.CurrentPage == "Admin" ? "active-sidebar-item" : "collapsed")"
                                 data-bs-toggle="collapse" data-bs-target="#adminMenu" aria-expanded="@(ViewBag.CurrentPage == "Admin" ? "true" : "false")" aria-controls="adminMenu">
                             <i class="fas fa-user-lock" title="Admin" style="margin-right:5px"></i> Admin
                             <i class="fa fa-chevron-right ms-auto @(ViewBag.CurrentPage == "Admin" ? "rotate-90" : "")"></i>
@@ -101,7 +102,7 @@
                         </div>
                     </li>
                     <li>
-                        <button class="btn btn-toggle align-items-center rounded collapsed mb-0 w-100 text-start @(ViewBag.CurrentPage == "Manager" ? "active-sidebar-item" : "collapsed")"
+                        <button class="btn btn-toggle align-items-center rounded collapsed mb-2 w-100 text-start @(ViewBag.CurrentPage == "Manager" ? "active-sidebar-item" : "collapsed")"
                                 data-bs-toggle="collapse"
                                 data-bs-target="#managerMenu"
                                 aria-expanded="@(ViewBag.CurrentPage == "Manager" ? "true" : "false")"
@@ -111,37 +112,32 @@
                             <i class="fa fa-chevron-right ms-auto @(ViewBag.CurrentPage == "Manager" ? "rotate-90" : "")"></i>
                         </button>
                         <div class="collapse @(ViewBag.CurrentPage == "Manager" ? "show" : "")" id="managerMenu">
-                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-0 small ps-3 mb-0">
-                                <li><a asp-area="Manager" asp-controller="Home" asp-action="Task" class="link-white text-decoration-none @(ViewBag.CurrentTab == "CreateTask" ? "active-sidebar-item" : "")">Create Tasks</a></li>
-                            </ul>
-                        </div>
-                        <div class="collapse @(ViewBag.CurrentPage == "Manager" ? "show" : "")" id="managerMenu">
-                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-0 small ps-3 mb-0">
-                                <li><a asp-area="Manager" asp-controller="Home" asp-action="Index" class="link-white text-decoration-none @(ViewBag.CurrentTab == "ViewTask" ? "active-sidebar-item" : "")">View Tasks</a></li>
+                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ps-3">
+                                <li><a asp-area="Manager" asp-controller="Home" asp-action="Index" class="link-white text-decoration-none @(ViewBag.CurrentPage == "Manager" ? "active-sidebar-item" : "")">View / Create Tasks</a></li>
                             </ul>
                         </div>
                     </li>
 
                     <li>
-                        <button class="btn btn-toggle align-items-center rounded collapsed mb-0 w-100 text-start @(ViewBag.CurrentPage == "Developer" ? "active-sidebar-item" : "collapsed")"
+                        <button class="btn btn-toggle align-items-center rounded collapsed mb-2 w-100 text-start @(ViewBag.CurrentPage == "Developer" ? "active-sidebar-item" : "collapsed")"
                                 data-bs-toggle="collapse" data-bs-target="#developerMenu" aria-expanded="@(ViewBag.CurrentPage == "Developer" ? "true" : "false")" aria-controls="developerMenu">
                             <i class="fas fa-laptop-code" title="Developer" style="margin-right:5px"></i>
                             Developer
                             <i class="fa fa-chevron-right ms-auto @(ViewBag.CurrentPage == "Developer" ? "rotate-90" : "")"></i>
                         </button>
                         <div class="collapse @(ViewBag.CurrentPage == "Developer" ? "show" : "")" id="developerMenu">
-                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-0 small ps-3 mb-0">
-                                <li><a asp-area="Developer" asp-controller="Home" asp-action="Index" class="link-white text-decoration-none @(ViewBag.CurrentPage == "Developer" ? "active-sidebar-item" : "")">Update Task Status</a></li>
+                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ps-3">
+                                <li><a asp-area="Developer" asp-controller="Home" asp-action="Index" class="link-white text-decoration-none @(ViewBag.CurrentPage == "Developer" ? "active-sidebar-item" : "")">View Tasks</a></li>
                             </ul>
                         </div>
                     </li>
                     <li>
-                        <a asp-area="" asp-controller="Home" asp-action="Feedback" class="d-block text-decoration-none mb-0 @(ViewBag.CurrentPage == "Feedback" ? "active-sidebar-item" : "")">
+                        <a asp-area="" asp-controller="Home" asp-action="Feedback" class="d-block text-decoration-none mb-2 @(ViewBag.CurrentPage == "Feedback" ? "active-sidebar-item" : "")">
                             <i class="fa-solid fa-ticket"></i> Ping Me
                         </a>
                     </li>
                     <li>
-                        <a asp-area="" asp-controller="Home" asp-action="ProjectOverview" class="d-block text-decoration-none mb-0 @(ViewBag.CurrentPage == "ProjectOverview" ? "active-sidebar-item" : "")">
+                        <a asp-area="" asp-controller="Home" asp-action="ProjectOverview" class="d-block text-decoration-none mb-2 @(ViewBag.CurrentPage == "ProjectOverview" ? "active-sidebar-item" : "")">
                             <i class="fa fa-info-circle me-2"></i> Project Overview
                         </a>
                     </li>
@@ -170,8 +166,6 @@
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        @* loading spinner *@
-    <script src="~/js/waitMe.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
