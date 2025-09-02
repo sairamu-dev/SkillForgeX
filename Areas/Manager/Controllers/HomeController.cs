@@ -44,6 +44,7 @@ namespace DevTaskFlow.Areas.Manager.Controllers
             var users = _userService.GetDevUsers();
             userList = _mapper.Map<List<UsersViewModel>>(users);
             ViewBag.CurrentPage = "Manager";
+            ViewBag.CurrentTab = "ViewTask";
 
             if (users == null) 
                 return View(userList);
@@ -58,11 +59,8 @@ namespace DevTaskFlow.Areas.Manager.Controllers
             task.Skills = getSkills();
             task.Projects = getProjects();
             task.PriorityList = getPriorityList();
-
-            if(GetUserRole() == "Manager" || GetUserRole() == "Guest")
-                ViewBag.CurrentPage = "Manager";
-            else
-                ViewBag.CurrentPage = "Admin";
+            ViewBag.CurrentPage = "Manager";
+            ViewBag.CurrentTab = "CreateTask";
 
             return View(task);
         }
@@ -73,6 +71,7 @@ namespace DevTaskFlow.Areas.Manager.Controllers
             task.Projects = getProjects();
             task.PriorityList = getPriorityList();
             ViewBag.CurrentPage = "Manager";
+            ViewBag.CurrentTab = "CreateTask";
 
             #region validations
 

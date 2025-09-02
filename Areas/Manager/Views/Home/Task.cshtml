@@ -2,51 +2,32 @@
 @model CreateTaskViewmodel
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Create Tasks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <head>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-
-    @* loading spinner *@
-    <script src="~/js/waitMe.min.js"></script>
-    <link rel="stylesheet" href="~/css/waitMe.css" />
-
     <style>
-        body {
-            background: #f4f6fb !important;
-            /* For fullscreen backgrounds (optional in side-panels) */
-        }
+        
+
         .task-form-card {
             background: #fff;
             border-radius: 18px;
             box-shadow: 0 8px 32px rgba(65,84,241,0.11);
             padding: 40px 30px 32px 30px;
-            max-width: 90%;
-            margin: 36px auto 0 auto;
             min-width: 90%;
+            margin: 5% 0% 0% 5%;
+            max-width: 90%
         }
-        .task-form-card h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            letter-spacing: -1px;
-            color: #26326a;
-        }
-        .close-btn-x {
-            background: transparent;
-            border: none;
-            font-size: 2.2rem;
-            color: #6366F1;
-            font-weight: 400;
-            transition: color .18s;
-            line-height: 1;
-        }
-        .close-btn-x:hover {
-            color: #f14836;
-        }
+
+            .task-form-card h1 {
+                font-size: 2rem;
+                font-weight: 700;
+                letter-spacing: -1px;
+                color: #26326a;
+            }
+
+
         .form-group label {
             font-weight: 500;
             color: #334155;
@@ -57,30 +38,26 @@
             font-size: larger;
             margin-left: 2px;
         }
-        .select2-container--default .select2-selection--multiple {
-            border-radius: 8px;
-            border-color: #dbeafe;
-            min-height: 40px;
-        }
-        .select2-container .select2-selection--multiple .select2-selection__rendered {
-            padding: 5px 8px;
-        }
+
         .form-control, .form-select, .select2-selection {
             border-radius: 8px !important;
             border-color: #dbeafe !important;
             box-shadow: none;
             transition: border-color .18s;
         }
-        .form-control:focus, .form-select:focus, .select2-selection:focus {
-            border-color: #4154f1 !important;
-            box-shadow: 0 0 0 1.5px #4154f181;
-        }
+
+            .form-control:focus, .form-select:focus, .select2-selection:focus {
+                border-color: #4154f1 !important;
+                box-shadow: 0 0 0 1.5px #4154f181;
+            }
+
         .btn-outline-success {
             border-radius: 8px;
             min-width: 90px;
             font-weight: 500;
             letter-spacing: .3px;
         }
+
         .btn-outline-danger {
             border-radius: 8px;
             min-width: 90px;
@@ -104,9 +81,6 @@
     <div style="display:flex;justify-content:space-between;align-items:center; margin-bottom:28px;">
         <div>
             <h1>Create</h1>
-        </div>
-        <div>
-            <button onclick="parent.closeSidePanel()" class="close-btn-x" aria-label="Close">&times;</button>
         </div>
     </div>
 
@@ -198,8 +172,7 @@
         <!-- Enddate -->
         <div class="form-group row mb-3">
             <div class="col-sm-3 d-flex align-items-center">
-                <i class="fa fa-calendar-alt me-2" aria-hidden="true"></i>
-                <label class="col-form-label me-1"><b>End date:</b></label>
+                <label class="col-form-label me-1">End date:</label>
                 <span class="required-star" title="please select the end date">*</span>
             </div>
             <div class="col-sm-9">
@@ -208,9 +181,8 @@
         </div>
 
         <!-- Save / Cancel Buttons -->
-        <div class="form-group row mt-4">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-9">
+        <div class="form-group row mt-5">
+            <div class="col-sm-12" style="display:flex;justify-content:center">
                 <button type="submit" class="btn btn-outline-success" @((ViewBag.SuccessMessage != null) ? "disabled" : "") onclick="EnableSpinner()">Save</button>
                 <button type="button" class="btn btn-outline-danger ms-2" onclick="parent.closeSidePanel()">Cancel</button>
             </div>
@@ -218,20 +190,20 @@
     </form>
 </div>
 
-<script>
-    $(document).ready(function () {
-        $('#taskCreate').waitMe('hide');
-    });
+@section Scripts {
+    <script>
+        $(function () {
+            $('#taskCreate').waitMe('hide');
 
-    function EnableSpinner(){
-        debugger;
-        $('#taskCreate').waitMe({
-            effect: 'ios',
-            text: 'Please wait.....',
-            bg: 'rgba(255, 255, 255, 0.7)',
-            color: '#000'
+            window.EnableSpinner = function () {
+                $('#taskCreate').waitMe({
+                    effect: 'ios',
+                    text: 'Please wait.....',
+                    bg: 'rgba(255, 255, 255, 0.7)',
+                    color: '#000'
+                });
+            };
         });
-    }
-</script>
-
+    </script>
+}
 

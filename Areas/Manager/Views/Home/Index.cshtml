@@ -2,7 +2,7 @@
 @model IEnumerable<UsersViewModel>
 
 @{
-    ViewData["Title"] = "View/Create Tasks";
+    ViewData["Title"] = "View Tasks";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -16,7 +16,8 @@
         </div>
         <div style="margin-left: auto;">
             <button type="button" id="btnTaskCreate"
-                    onclick="openSidePanel('@Url.Action("Task", "Home", new { area = "Manager" })')"
+                    @* onclick="openSidePanel('@Url.Action("Task", "Home", new { area = "Manager" })')" *@
+                    onclick="location.href='@Url.Action("Task", "Home", new { area = "Manager" })'"
                     class="btn btn-primary">
                 Create Task
             </button>
@@ -46,7 +47,7 @@
                 <th>User Name</th>
                 <th>Role</th>
                 <th>IsActive</th>
-                <th>Concurrent Task</th>
+                <th>Ongoing Tasks</th>
                 <th>Skills</th>
             </tr>
         </thead>
