@@ -171,7 +171,7 @@ namespace DevTaskFlow.Areas.Manager.Controllers
                 ViewBag.ErrorMessage = $"error occured while processing your request - {eq.Message}";
             }
 
-            return View(task);
+            return RedirectToAction("Task");
         }
 
         [HttpGet]

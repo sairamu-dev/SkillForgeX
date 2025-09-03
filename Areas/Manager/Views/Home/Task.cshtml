@@ -104,7 +104,7 @@
     @if (ViewBag.SuccessMessage != null)
     {
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <span>@ViewBag.SuccessMessage</span>
+            <span>@ViewBag.SuccessMessage <a asp-area="Manager" asp-controller="Home" asp-action="Task" title="Explore"><i class="fa-solid fa-square-arrow-up-right"></i> </a></span>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
