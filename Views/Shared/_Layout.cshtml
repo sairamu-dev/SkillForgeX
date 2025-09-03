@@ -47,35 +47,40 @@
                     <a class="navbar-brand ms-2 text-white" asp-area="" asp-controller="Home" asp-action="Dashboard">DevTaskFlow</a>
                 </div>
                 <button type="button" id="navCloseBtn" class="btn btn-sm btn-outline-light" aria-label="Close sidebar" title="close sidebar">
-                    <i class="fa fa-chevron-left ms-auto"></i>
+                    <i class="fa fa-bars"></i>
                 </button>
             </div>
 
             <!-- Second Section: User img + username / message icon + logout icon -->
             <div class="user-section px-3">
                 <div class="user-info">
-                    <img src="~/images/person-circle.svg" alt="User" class="user-pic" />
+                    <img src="~/images/account-white-icon.svg" alt="User" class="user-pic" />
                     <span class="user-name" style="color:white">@userName <span class="badge bg-danger" style="font-size: x-small;">@role</span></span>
                 </div>
-                <div class="action-buttons">
+                <div class="action-buttons" style="display: flex; gap: 5px; align-items: center;">
                     <a asp-area=""
                        asp-controller="Home"
                        asp-action="Notifications"
                        class="btn btn-outline-light btn-sm"
                        aria-label="Notifications"
-                       title="Notifications" style="font-size: xx-small; inline-flex; align-items: center; color:@(ViewBag.CurrentPage == "Notifications" ? "black" : ""); background-color:@(ViewBag.CurrentPage == "Notifications" ? "White" : "");">
-                        <i class="fa fa-envelope"> Notifications</i>
+                       title="Notifications"
+                       style="font-size: 12px; display: inline-flex; align-items: center; font-weight: bold; color:@(ViewBag.CurrentPage == "Notifications" ? "black" : ""); background-color:@(ViewBag.CurrentPage == "Notifications" ? "white" : "");">
+                        <i class="fa fa-envelope" style="margin-right: 4px; font-size: 14px;"></i>
+                        Notifications
                     </a>
-                    |
+
+                    <span>|</span>
+
                     <a asp-area=""
                        asp-controller="Home"
                        asp-action="Logout"
                        class="btn btn-outline-light btn-sm"
                        aria-label="Logout"
-                       title="Logout" style="font-size: xx-small; inline-flex; align-items: center;">
-                        <i class="fa fa-sign-out-alt"> Logout</i>
+                       title="Logout"
+                       style="font-size: 12px; display: inline-flex; align-items: center; font-weight: bold;">
+                        <i class="fa fa-sign-out-alt" style="margin-right: 4px; font-size: 14px;"></i>
+                        Logout
                     </a>
-
                 </div>
             </div>
 
@@ -161,7 +166,7 @@
             class="btn btn-primary"
             aria-label="Open sidebar"
             style="display:none; position: fixed; top: 15px; left: 15px; z-index: 1050;background-color: #2c3e50;" title="open sidebar">
-        <i class="fa fa-chevron-right ms-auto"></i>
+        <i class="fa fa-bars"></i>
     </button>
     <footer class="footer text-muted text-center py-3" style="width: 105% !important;line-height: 1% !important">
         <div class="container">

@@ -158,12 +158,13 @@ namespace DevTaskFlow.Areas.Manager.Controllers
 
                 task.AssignedTo = taskAssignedUser.ID;
                 _portalRoleService.AddTaskForDevUsers(_mapper.Map<Tasks>(task));
-                ViewBag.SuccessMessage = DevsTaskAssigned + taskAssignedUser.UserName;
+                ViewBag.SuccessMessage = DevsTaskAssigned + taskAssignedUser.UserName + " <a href='/Manager/Home/Index'><i class='fa-solid fa-square-arrow-up-right' title='Explore'></i></a>";
 
                 #endregion
 
                 _context.SaveChanges();
                 transaction.Commit();
+                ModelState.Clear();
             }
             catch(Exception eq)
             {
@@ -171,7 +172,13 @@ namespace DevTaskFlow.Areas.Manager.Controllers
                 ViewBag.ErrorMessage = $"error occured while processing your request - {eq.Message}";
             }
 
-            return RedirectToAction("Task");
+            CreateTaskViewmodel NewTask = new CreateTaskViewmodel
+            {
+                Projects = getProjects(),
+                PriorityList = getPriorityList()
+            };
+
+            return View(NewTask);
         }
 
         [HttpGet]

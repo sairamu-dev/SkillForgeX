@@ -104,7 +104,7 @@
     @if (ViewBag.SuccessMessage != null)
     {
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <span>@ViewBag.SuccessMessage <a asp-area="Manager" asp-controller="Home" asp-action="Task" title="Explore"><i class="fa-solid fa-square-arrow-up-right"></i> </a></span>
+            <span>@Html.Raw(ViewBag.SuccessMessage)</span>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
@@ -183,7 +183,7 @@
         <!-- Save / Cancel Buttons -->
         <div class="form-group row mt-5">
             <div class="col-sm-12" style="display:flex;justify-content:center">
-                <button type="submit" class="btn btn-outline-success" @((ViewBag.SuccessMessage != null) ? "disabled" : "") onclick="EnableSpinner()">Save</button>
+                <button type="submit" class="btn btn-outline-success" onclick="EnableSpinner()">Save</button>
                 <button type="button" class="btn btn-outline-danger ms-2" onclick="parent.closeSidePanel()">Cancel</button>
             </div>
         </div>
