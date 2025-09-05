@@ -1,135 +1,146 @@
-## DevTaskFlow
-AI-Powered Task Assigner for Developer Teams - [DevTaskFlow](http://devtaskaskflow.runasp.net/)<br>
-
-**📌 Overview** <br>
-DevTaskFlow is an AI-powered smart task assignment tool for developer teams.
-It automatically matches tasks to the most suitable developers, balances workloads, and adapts to priority changes in real-time.<br>
-
-**🚨 The Problem**
-<li>Developer teams often face challenges such as:
-
-<li>Skill mismatches – Tasks assigned without considering actual expertise
-
-<li>Unbalanced workloads – Some developers overloaded while others are underutilized
-
-<li>Rigid assignments – Tasks don’t adapt when priorities change
-
-**Research-backed insights:**
-
-<li>58% of developers work on mismatched tasks (2023 Stack Overflow Survey)
-
-<li>15% of sprint planning time is lost on manual assignment (2022 Atlassian Report)
-
-<li>Imbalanced workloads accelerate burnout (Harvard Business Review, 2021)<br>
-
-**💡 Why DevTaskFlow**<br>
-DevTaskFlow solves these issues with AI-powered task allocation:
-
-<li>Extracts skills automatically from task descriptions using Gemini AI
-
-<li>Matches the right developer to the right task
-
-<li>Ensures fair workload distribution
-
-<li>Handles priority changes dynamically (urgent tasks override less critical ones)
-
-<li>Prevents burnout by enforcing a hard cap of 5 active tasks per developer<br>
-
-**🎯 Motivation**<br>
-Built with developers in mind, DevTaskFlow aims to:
-
-<li>Eliminate inefficient manual task assignment
-
-<li>Reduce burnout risks with balanced workloads
-
-<li>Provide managerial transparency without micromanagement<br>
-
-**🔐 Role-Based Access**<br>
-<li><b>Admin</b> → Full control with override capabilities
-
-<li><b>Manager</b> → Create and manage tasks, track progress
-
-<li><b>Developer</b> → View, manage, and update assigned tasks
-
-<li><b>Guest</b> → Temporary, read-only access for oversight<br>
-
-**⚖️ Feature Comparison**<br>
-**Task Assignment**
-
-<li>Jira / Trello: Manual guesswork
-<li>DevTaskFlow: AI auto-assigns by skills & availability<br>
-
-**Workload Management**
-
-<li>Jira / Trello: No task limits
-<li>DevTaskFlow: Enforces max 5 active tasks per developer<br>
-
-**Skill Matching**
-
-<li>Jira / Trello: Not considered
-<li>DevTaskFlow: Extracts skills via Gemini AI<br>
-
-**Priority Handling**
-
-<li>Jira / Trello: Labels only
-<li>DevTaskFlow: AI rebalances tasks dynamically<br>
+# DevTaskFlow
+AI-Powered Smart Task Assigner for Developer Teams - [Live Demo](http://devtaskaskflow.runasp.net/)
 
 
+### Table of Contents
+- Overview
 
-**🛠 Tech Stack**<br>
-**Backend**
+- The Problem
 
-<li>.NET Core
+- Why DevTaskFlow
 
-<li>Entity Framework (ORM)
+- Motivation
 
-<li>SQL Server
+- Role-Based Access
 
-**Frontend**
+- Feature Comparison
 
-<li>HTML5, CSS3, JavaScript
+- Tech Stack
 
-<li>jQuery, Bootstrap
+- Getting Started
 
-<li>Google Visualization (PieChart for dashboards and metrics)
+- Contributing
 
-**AI & Utilities**
+- License
 
-<li>Gemini AI → Skill extraction & smart matching
+### Overview
+DevTaskFlow is an AI-powered task assignment tool designed for developer teams.
+It ensures that tasks are matched to the most suitable developers, balances workloads, and adapts automatically to shifting priorities in real time.
 
-<li>AutoMapper → Object-to-object mapping
+### The Problem
+**Developer teams often face:**
 
-<li>ClosedXML → Generate Excel exports/reports
+- Skill mismatches (assignments not aligned with expertise)
 
-<li>Serilog → Logging and monitoring
+- Unbalanced workloads (some developers overloaded, others underutilized)
 
-🚀 Getting Started
+- Rigid task allocation (lacking adaptability to shifting priorities)
+
+**Supporting research:**
+
+- 58% of developers are assigned mismatched tasks **(Stack Overflow, 2023)**
+
+- 15% of sprint planning is wasted on manual assignment **(Atlassian, 2022)**
+
+- Imbalanced workloads accelerate burnout **(Harvard Business Review, 2021)**
+
+### Why DevTaskFlow
+- AI-powered skill extraction from task descriptions (via Gemini AI)
+
+- Smart task-developer matching based on availability and expertise
+
+- Balanced workload management enforcing a cap of 5 active tasks per developer
+
+- Dynamic priority handling for urgent tasks
+
+- Burnout prevention by avoiding overloads
+
+### Motivation
+- DevTaskFlow was built with developer well-being and team efficiency in mind:
+
+- Eliminates inefficient manual task assignment
+
+- Prevents burnout with balanced workloads
+
+- Provides transparency for managers without the need for micromanagement
+
+### Role-Based Access
+**Role	Capabilities**
+- Admin	- Full control with override permissions
+- Manager	- Create & manage tasks, monitor progress
+- Developer	- View, manage, and update assigned tasks
+- Guest	- Manager rights granted for oversight (limited time).
+
+### Feature Comparison
+| Feature             | Jira / Trello         | DevTaskFlow                               |
+|---------------------|-----------------------|-------------------------------------------|
+| Task Assignment     | Manual                | AI auto-assigns by skill & availability   |
+| Workload Management | None                  | Max 5 active tasks per developer          |
+| Skill Matching      | Not supported         | AI-powered                                |
+| Priority Handling   | Labels only           | Dynamic rebalancing                       |
+
+
+### Tech Stack
+**Backend:**
+
+- .NET Core
+
+- Entity Framework (ORM)
+
+- SQL Server
+- Repository pattern
+
+**Frontend:**
+
+- HTML5, CSS3, JavaScript
+
+- jQuery, Ajax, Bootstrap
+
+- Google Visualization (PieCharts for dashboards)
+
+**AI & Utilities:**
+
+- Gemini AI – Skill extraction & task matching
+
+- AutoMapper – Object-to-object mapping
+
+- ClosedXML – Excel reporting & exports
+
+- Serilog – Logging & monitoring
+
+### Getting Started
+Clone the Repository:
+
+**bash**
+- git clone https://github.com/sairamu-dev/DevTaskFlow.git
+- Navigate into the Project Directory:
+- cd DevTaskFlow
+  
+**Configure appsettings.json:**
+
+- Add SQL Server connection string - **(in this project i'm provided sql scripts)**
+- Update Serilog logging settings
+- Insert Gemini AI API key - [get your api key here](https://aistudio.google.com/apikey)
+
+**Run Database Migrations:**
+
 bash
-# 1. Clone the repository
-git clone https://github.com/sairamu-dev/DevTaskFlow.git
+- dotnet ef database update
+- Build & Run the Application:
+- dotnet run
+- Access the application at: http://localhost:5000
 
-# 2. Navigate into project
-cd devtaskflow
+### Contributing
+**We welcome contributions:**
 
-# 3. Update appsettings.json
-Configure your SQL Server connection string & Serilog settings<br>
-generate your gemini api key & replace in the file
+- Fork the repository
 
-# 4. Run Database Migrations
-dotnet ef database update
+- Create a feature branch
 
-# 5. Build and Run
-dotnet run
-Access the application:
-http://localhost:5000 (default port)
+- Commit your changes
 
-**🤝 Contributing**
-<li>Contributions are welcome!
+- Submit a Pull Request
 
-<li>Open issues for bugs and suggestions
-
-<li>Submit pull requests with improvements or enhancements
-
-**📄 License**<br>
-This project is licensed under the MIT License.<br>
-See the LICENSE file for details.
+### License
+- This project is licensed under the MIT License.
+- See the [MIT License](https://opensource.org/licenses/MIT) for details.
