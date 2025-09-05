@@ -7,7 +7,7 @@ AI-Powered Smart Task Assigner for Developer Teams - [Live Demo](http://devtaska
 
 - The Problem
 
-- Why DevTaskFlow
+- Why SkillForgeX
 
 - Motivation
 
@@ -24,7 +24,7 @@ AI-Powered Smart Task Assigner for Developer Teams - [Live Demo](http://devtaska
 - License
 
 ### Overview
-DevTaskFlow is an AI-powered task assignment tool designed for developer teams.
+SkillForgeX is an AI-powered task assignment tool designed for developer teams.
 It ensures that tasks are matched to the most suitable developers, balances workloads, and adapts automatically to shifting priorities in real time.
 
 ### The Problem
@@ -44,7 +44,7 @@ It ensures that tasks are matched to the most suitable developers, balances work
 
 - Imbalanced workloads accelerate burnout **(Harvard Business Review, 2021)**
 
-### Why DevTaskFlow
+### Why SkillForgeX
 - AI-powered skill extraction from task descriptions (via Gemini AI)
 
 - Smart task-developer matching based on availability and expertise
@@ -56,7 +56,7 @@ It ensures that tasks are matched to the most suitable developers, balances work
 - Burnout prevention by avoiding overloads
 
 ### Motivation
-- DevTaskFlow was built with developer well-being and team efficiency in mind:
+- SkillForgeX was built with developer well-being and team efficiency in mind:
 
 - Eliminates inefficient manual task assignment
 
@@ -72,7 +72,7 @@ It ensures that tasks are matched to the most suitable developers, balances work
 - Guest	- Manager rights granted for oversight (limited time).
 
 ### Feature Comparison
-| Feature             | Jira / Trello         | DevTaskFlow                               |
+| Feature             | Jira / Trello         | SkillForgeX                               |
 |---------------------|-----------------------|-------------------------------------------|
 | Task Assignment     | Manual                | AI auto-assigns by skill & availability   |
 | Workload Management | None                  | Max 5 active tasks per developer          |
@@ -112,9 +112,9 @@ It ensures that tasks are matched to the most suitable developers, balances work
 Clone the Repository:
 
 **bash**
-- git clone https://github.com/sairamu-dev/DevTaskFlow.git
+- git clone https://github.com/sairamu-dev/SkillForgeX.git
 - Navigate into the Project Directory:
-- cd DevTaskFlow
+- cd SkillForgeX
   
 **Configure appsettings.json:**
 
