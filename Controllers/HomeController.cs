@@ -6,14 +6,14 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using DevTaskFlow.Models;
-using DevTaskFlow.ViewModels;
-using DevTaskFlow.Repository_pattern.Core.Enitities;
-using DevTaskFlow.Repository_pattern.Service.Services;
+using SkillForgeX.Models;
+using SkillForgeX.ViewModels;
+using SkillForgeX.Repository_pattern.Core.Enitities;
+using SkillForgeX.Repository_pattern.Service.Services;
 using AutoMapper;
 
 
-namespace DevTaskFlow.Controllers
+namespace SkillForgeX.Controllers
 {
     public class HomeController : Controller
     {

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevTaskFlow", "DevTaskFlow.csproj", "{29CB2FB8-8EE2-43AB-B399-95C3E3FDCC5F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevTaskFlow", "SkillForgeX.csproj", "{29CB2FB8-8EE2-43AB-B399-95C3E3FDCC5F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

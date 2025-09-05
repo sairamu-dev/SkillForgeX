@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Text;
 
-namespace DevTaskFlow.Repository_pattern.Service.Services
+namespace SkillForgeX.Repository_pattern.Service.Services
 {
     //      For gemini-1.5-flash, Google’s free tier quotas(as of now) are:
     //      15 requests per minute

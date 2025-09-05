@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DevTaskFlow.Areas.Admin.ViewModels
+namespace SkillForgeX.Areas.Admin.ViewModels
 {
     public class ApiViewmodel
     {

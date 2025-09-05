@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace DevTaskFlow.Areas.Developer.ViewModels
+namespace SkillForgeX.Areas.Developer.ViewModels
 {
     public class UserTaskViewModel
     {

@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using DevTaskFlow.Repository_pattern.Repository;
-using DevTaskFlow.Repository_pattern.Repository.Repositories;
-using DevTaskFlow.Repository_pattern.Service.Services;
+using SkillForgeX.Repository_pattern.Repository;
+using SkillForgeX.Repository_pattern.Repository.Repositories;
+using SkillForgeX.Repository_pattern.Service.Services;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);

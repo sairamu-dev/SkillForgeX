@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using DevTaskFlow.Areas.Developer.ViewModels;
-using DevTaskFlow.Repository_pattern.Core.Enitities;
-using DevTaskFlow.Repository_pattern.Repository;
-using DevTaskFlow.Repository_pattern.Service.Services;
+using SkillForgeX.Areas.Developer.ViewModels;
+using SkillForgeX.Repository_pattern.Core.Enitities;
+using SkillForgeX.Repository_pattern.Repository;
+using SkillForgeX.Repository_pattern.Service.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace DevTaskFlow.Areas.Developer.Controllers
+namespace SkillForgeX.Areas.Developer.Controllers
 {
     [Area("Developer")]
     [Authorize(Roles = "Developer")]

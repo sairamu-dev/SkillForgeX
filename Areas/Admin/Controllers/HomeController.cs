@@ -1,18 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using DevTaskFlow.Repository_pattern.Core.Enitities;
-using DevTaskFlow.Repository_pattern.Repository;
-using DevTaskFlow.Repository_pattern.Service.Services;
-using DevTaskFlow.Areas.Admin.ViewModels;
-using DevTaskFlow.Areas.Manager.ViewModels;
+using SkillForgeX.Repository_pattern.Core.Enitities;
+using SkillForgeX.Repository_pattern.Repository;
+using SkillForgeX.Repository_pattern.Service.Services;
+using SkillForgeX.Areas.Admin.ViewModels;
+using SkillForgeX.Areas.Manager.ViewModels;
 using AutoMapper;
 using ClosedXML.Excel;
-using Tasks = DevTaskFlow.Repository_pattern.Core.Enitities.Tasks;
+using Tasks = SkillForgeX.Repository_pattern.Core.Enitities.Tasks;
 using DocumentFormat.OpenXml.Spreadsheet;
-using DevTaskFlow.Repository_pattern.Core.Interfaces;
+using SkillForgeX.Repository_pattern.Core.Interfaces;
 
-namespace DevTaskFlow.Areas.Admin.Controllers
+namespace SkillForgeX.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
@@ -182,7 +182,7 @@ namespace DevTaskFlow.Areas.Admin.Controllers
                 return View(api);
             }
 
-            _portalRoleService.UpdateApiDetail(_mapper.Map<DevTaskFlow.Repository_pattern.Core.Enitities.Api>(api));
+            _portalRoleService.UpdateApiDetail(_mapper.Map<SkillForgeX.Repository_pattern.Core.Enitities.Api>(api));
             ViewBag.SuccessMessage = "Api Updated Successfully";
             return View(api);
         }

@@ -1,8 +1,8 @@
-﻿using DevTaskFlow.Repository_pattern.Core.Enitities;
+﻿using SkillForgeX.Repository_pattern.Core.Enitities;
 using Microsoft.EntityFrameworkCore;
-using Tasks = DevTaskFlow.Repository_pattern.Core.Enitities.Tasks;
+using Tasks = SkillForgeX.Repository_pattern.Core.Enitities.Tasks;
 
-namespace DevTaskFlow.Repository_pattern.Repository
+namespace SkillForgeX.Repository_pattern.Repository
 {
     public class AppDbContext : DbContext
     {

@@ -1,4 +1,4 @@
-﻿namespace DevTaskFlow.Areas.Manager.ViewModels
+﻿namespace SkillForgeX.Areas.Manager.ViewModels
 {
     public class UsersViewModel
     {

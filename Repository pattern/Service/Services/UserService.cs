@@ -1,7 +1,7 @@
-﻿using DevTaskFlow.Repository_pattern.Core.Enitities;
-using DevTaskFlow.Repository_pattern.Repository.Repositories;
+﻿using SkillForgeX.Repository_pattern.Core.Enitities;
+using SkillForgeX.Repository_pattern.Repository.Repositories;
 
-namespace DevTaskFlow.Repository_pattern.Service.Services
+namespace SkillForgeX.Repository_pattern.Service.Services
 {
     public class UserService
     {

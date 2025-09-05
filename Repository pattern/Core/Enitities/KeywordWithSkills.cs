@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DevTaskFlow.Repository_pattern.Core.Enitities
+namespace SkillForgeX.Repository_pattern.Core.Enitities
 {
     public class KeywordWithSkills
     {

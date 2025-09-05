@@ -1,11 +1,11 @@
-﻿using DevTaskFlow.ViewModels;
-using DevTaskFlow.Repository_pattern.Core.Enitities;
-using DevTaskFlow.Areas.Admin.ViewModels;
-using DevTaskFlow.Areas.Developer.ViewModels;
-using DevTaskFlow.Areas.Manager.ViewModels;
+﻿using SkillForgeX.ViewModels;
+using SkillForgeX.Repository_pattern.Core.Enitities;
+using SkillForgeX.Areas.Admin.ViewModels;
+using SkillForgeX.Areas.Developer.ViewModels;
+using SkillForgeX.Areas.Manager.ViewModels;
 using AutoMapper;
 
-namespace DevTaskFlow.Models
+namespace SkillForgeX.Models
 {
     public class MappingProfile : Profile
     {

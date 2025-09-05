@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DevTaskFlow.ViewModels
+namespace SkillForgeX.ViewModels
 {
     public class FeedbackViewModel
     {

@@ -1,7 +1,7 @@
-﻿using DevTaskFlow.Repository_pattern.Core.Enitities;
-using DevTaskFlow.Repository_pattern.Core.Interfaces;
+﻿using SkillForgeX.Repository_pattern.Core.Enitities;
+using SkillForgeX.Repository_pattern.Core.Interfaces;
 
-namespace DevTaskFlow.Repository_pattern.Repository.Repositories
+namespace SkillForgeX.Repository_pattern.Repository.Repositories
 {
     public class UserRepository : IUser
     {

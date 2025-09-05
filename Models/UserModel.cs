@@ -1,4 +1,4 @@
-﻿namespace DevTaskFlow.Models
+﻿namespace SkillForgeX.Models
 {
     public class UserModel
     {

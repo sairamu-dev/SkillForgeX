@@ -1,4 +1,4 @@
-﻿namespace DevTaskFlow.ViewModels
+﻿namespace SkillForgeX.ViewModels
 {
     public class UserTypeViewModel
     {

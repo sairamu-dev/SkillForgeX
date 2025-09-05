@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DevTaskFlow.Repository_pattern.Core.Enitities
+namespace SkillForgeX.Repository_pattern.Core.Enitities
 {
     public class GuestUser
     {

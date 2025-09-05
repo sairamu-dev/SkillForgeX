@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
-namespace DevTaskFlow.Areas.Admin.ViewModels
+namespace SkillForgeX.Areas.Admin.ViewModels
 {
     public class EditTaskViewModel
     {

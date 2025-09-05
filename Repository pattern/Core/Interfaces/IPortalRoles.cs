@@ -1,7 +1,7 @@
-﻿using DevTaskFlow.Repository_pattern.Core.Enitities;
+﻿using SkillForgeX.Repository_pattern.Core.Enitities;
 
 
-namespace DevTaskFlow.Repository_pattern.Core.Interfaces
+namespace SkillForgeX.Repository_pattern.Core.Interfaces
 {
     public interface IPortalRoles
     {
