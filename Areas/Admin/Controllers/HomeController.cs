@@ -220,7 +220,7 @@ namespace DevTaskFlow.Areas.Admin.Controllers
                 workbook.SaveAs(stream);
                 stream.Position = 0;
 
-                string excelName = $"DevTaskFlow-Feedbacks-{DateTime.Now:yyyy-MM-dd_HH:mm}.xlsx";
+                string excelName = $"SkillForgeX-Feedbacks-{DateTime.Now:yyyy-MM-dd_HH:mm}.xlsx";
 
                 return File(
                     stream,
@@ -259,7 +259,7 @@ namespace DevTaskFlow.Areas.Admin.Controllers
                 workbook.SaveAs(stream);
                 stream.Position = 0;
 
-                string excelName = $"DevTaskFlow-ErrorLogs-{DateTime.Now:yyyy-MM-dd_HH:mm}.xlsx";
+                string excelName = $"SkillForgeX-ErrorLogs-{DateTime.Now:yyyy-MM-dd_HH:mm}.xlsx";
 
                 return File(
                     stream,
@@ -301,7 +301,7 @@ namespace DevTaskFlow.Areas.Admin.Controllers
                 workbook.SaveAs(stream);
                 stream.Position = 0;
 
-                string excelName = $"DevTaskFlow-ApiDetail-{DateTime.Now:yyyy-MM-dd_HH:mm}.xlsx";
+                string excelName = $"SkillForgeX-ApiDetail-{DateTime.Now:yyyy-MM-dd_HH:mm}.xlsx";
 
                 return File(
                     stream,

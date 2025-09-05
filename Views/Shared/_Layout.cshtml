@@ -41,15 +41,25 @@
     <div class="layout-wrapper" id="layoutWrapper">
         <aside class="sidebar bg-dark text-white d-flex flex-column" id="sidebar">
             <!-- First Section: Logo + Close Button -->
-            <div class="logo-close">
-                <div class="logo">
-                    <img src="~/favicon.ico" alt="Logo" />
-                    <a class="navbar-brand ms-2 text-white" asp-area="" asp-controller="Home" asp-action="Dashboard">DevTaskFlow</a>
+            <div class="logo-close" style="display: flex; align-items: center; justify-content: space-between;">
+                <div class="logo" style="display: flex; align-items: center; color: white;">
+                    <img src="~/favicon.ico" alt="Logo" style="height:30px;" />
+                    <div style="margin-left: 10px; display: flex; flex-direction: column;">
+                        <a asp-area="" asp-controller="Home" asp-action="Dashboard"
+                           style="font-weight: bold; font-size: 18px; text-decoration: none; color: white;">
+                            SkillForgeX
+                        </a>
+                        <span style="font-size: 12px; font-weight: normal; color: #ddd;">
+                            AI-Powered Task Assigner
+                        </span>
+                    </div>
                 </div>
-                <button type="button" id="navCloseBtn" class="btn btn-sm btn-outline-light" aria-label="Close sidebar" title="close sidebar">
+                <button type="button" id="navCloseBtn" class="btn btn-sm btn-outline-light"
+                        aria-label="Close sidebar" title="close sidebar">
                     <i class="fa fa-bars"></i>
                 </button>
             </div>
+
 
             <!-- Second Section: User img + username / message icon + logout icon -->
             <div class="user-section px-3">
