@@ -25,21 +25,22 @@
     </div>
 
     <!-- Always visible header -->
-    <div class="alert alert-primary" role="alert" style="padding: 1rem 1rem 0rem 1rem">
-        <p class="alert-heading" style="display: flex;justify-content: space-between;">
-            <span><i class="fa fa-info-circle" aria-hidden="true"></i> Note</span>
-            <span><button class="btn btn-sm btn-outline-primary float-right" onclick="toggleNoteContent()"><i class="fa fa-chevron-down ms-auto" title="Expand"></i></button></span>
+    <div class="alert alert-primary" role="alert" style="padding: 1rem; border-radius: 6px; font-family: Arial, sans-serif;">
+        <p class="alert-heading" style="display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 1.1rem; margin-bottom: 0.75rem;">
+            <span><i class="fa fa-info-circle" aria-hidden="true" style="margin-right: 0.5rem; color: #0d6efd;"></i> Note</span>
+            <!-- Optional toggle button can go here -->
         </p>
-
-        <!-- Hidden content to be toggled -->
-        <div id="noteContent" style="display: none;">
-            <p>Each developer can handle up to 5 tasks concurrently. Since all developers are currently at full capacity, your task will be put on hold.</p>
-            <hr>
-            <p>In this project, I focused primarily on .NET technologies and frontend development. I used an AI prompt specifically designed to extract skills relevant to these areas.</p>
+        <div id="noteContent" style="display: block; padding-left: 1rem;">
+            <ul style="list-style-position: inside; margin: 0; padding-left: 0;">
+                <li style="margin-bottom: 12px; font-size: 0.95rem; line-height: 1.4; color: #333;">
+                    Each developer can handle up to 5 tasks concurrently. Since all developers are currently at full capacity, your task will be placed on hold.
+                </li>
+                <li style="margin-bottom: 0; font-size: 0.95rem; line-height: 1.4; color: #333;">
+                    In this project, the focus was primarily on .NET technologies and frontend development. An AI prompt was used to specifically extract skills relevant to these areas.
+                </li>
+            </ul>
         </div>
     </div>
-
-    
 
     <table class="table dev-users-table table-hover table-responsive">
         <thead>

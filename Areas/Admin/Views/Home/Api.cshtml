@@ -139,7 +139,7 @@
             </div>
         }
 
-        <form asp-action="Api" asp-controller="Home" asp-area="Admin" method="post">
+        <form asp-action="Api" id="UpdateAPI" asp-controller="Home" asp-area="Admin" method="post">
             
             @Html.HiddenFor(m => m.Id)
             <div class="container mt-2 mb-2">
@@ -198,7 +198,7 @@
                     <div class="col-sm-3"></div>
                     <div class="col-sm-9">
                         <button type="submit" class="btn btn-outline-success">Save</button>
-                        <button type="button" class="btn btn-outline-danger ms-2" onclick="parent.closeSidePanel()">Cancel</button>
+                        <button type="button" class="btn btn-outline-secondary ms-2" onclick="document.getElementById('UpdateAPI').reset();">Cancel</button>
                     </div>
                 </div>
 

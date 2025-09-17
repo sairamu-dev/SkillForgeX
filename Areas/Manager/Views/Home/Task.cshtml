@@ -117,7 +117,7 @@
         </div>
     }
 
-    <form asp-action="Task" asp-controller="Home" asp-area="Manager" method="post">
+    <form asp-action="Task" id="taskForm" asp-controller="Home" asp-area="Manager" method="post">
 
         <!-- Project Dropdown -->
         <div class="form-group row mb-3">
@@ -184,7 +184,7 @@
         <div class="form-group row mt-5">
             <div class="col-sm-12" style="display:flex;justify-content:center">
                 <button type="submit" class="btn btn-outline-success" onclick="EnableSpinner()">Save</button>
-                <button type="button" class="btn btn-outline-danger ms-2" onclick="parent.closeSidePanel()">Cancel</button>
+                <button type="button" class="btn btn-outline-secondary ms-2" onclick="document.getElementById('taskForm').reset();">Cancel</button>
             </div>
         </div>
     </form>
