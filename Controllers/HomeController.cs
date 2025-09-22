@@ -183,12 +183,20 @@ namespace SkillForgeX.Controllers
         }
 
         [Authorize]
+        public IActionResult UserManual()
+        {
+            ViewBag.CurrentPage = "ProjectOverview";
+            return View();
+        }
+
+        [Authorize]
         public IActionResult Notifications()
         {
             ViewBag.CurrentUser = User.FindFirst(ClaimTypes.Role)?.Value;
             ViewBag.CurrentPage = "Notifications";
             return View();
         }
+
 
         public async Task<IActionResult> Logout()
         {

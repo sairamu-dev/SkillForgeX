@@ -1,0 +1,102 @@
+﻿@{
+    ViewData["Title"] = "How it works?";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+
+    .project-overview-card {
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 8px 32px rgba(65, 84, 241, 0.11);
+        padding: 32px 28px 26px 28px;
+        font-family: 'Open Sans', Verdana, Geneva, Tahoma, sans-serif;
+        color: #1e293b;
+        line-height: 1.6;
+        margin-bottom: 26px;
+    }
+
+    .project-overview-card h2 {
+        font-size: 1.55rem;
+        font-weight: 600;
+        margin-bottom: 14px;
+        color: #4154f1;
+    }
+
+    .project-overview-card p,
+    .project-overview-card ul {
+        font-size: 1rem;
+        color: #334155;
+    }
+
+    .project-overview-card ul {
+        list-style-type: disc;
+        padding-left: 22px;
+    }
+
+    .project-overview-card strong {
+        color: #1e293b;
+        font-weight: 600;
+    }
+
+    .project-overview-card em {
+        font-style: italic;
+        color: #475569;
+    }
+
+</style>
+
+<div class="project-overview-card" style="margin:1% 0% 0% 5%;max-width:90%; background:#f2f2f2 !important">
+    <h1 style="margin-bottom: 3%;">Introducing SkillForgeX</h1>
+    <div style="display:flex;justify-content:space-between">
+        <p><strong>AI-Powered Task Assigner for Developer Teams</strong></p>
+        <a asp-area="" asp-controller="Home" asp-action="ProjectOverview">Project Overview</a>
+    </div>
+    
+    @* how it works *@
+    <section class="project-overview-card">
+        <h4>How It Works</h4>
+        <p><b>SkillForgeX</b> simplifies task assignment by using AI to intelligently match tasks with the most suitable developers based on required skills and current workload.</p>
+
+        <h1 class="mb-3">Developer Skill Profiles</h1>
+        <p>The system begins with a <b>list of developers, each tagged with their specific skillsets. </b>(e.g., .NET, React, Angular, etc....)</p>
+
+        <h4 class="mb-3">Task Creation</h4>
+        <p>When a Manager / Guest creates a new task, they provide key task details, such as:</p>
+        <ul>
+            <li>Task title and description</li>
+            <li>Priority level</li>
+            <li>Project context</li>
+        </ul>
+
+        <h4 class="mb-3">AI-Powered Skill Extraction</h4>
+        <p>
+            Using AI, the system <b>automatically analyzes the task description and extracts the required technical skills</b>.
+            For this prototype, the AI prompt is tailored to <b>focus on .NET technologies and frontend development.</b>
+        </p>
+
+        <h4 class="mb-3">Smart Task Assignment</h4>
+        <p>Based on the extracted skills, the system <b>assigns the task to the best-suited available developer</b> — someone whose skills match the task requirements and who has capacity to take on more work.</p>
+
+        <h4 class="mb-3">Workload Balancing</h4>
+        <p>To ensure fair distribution and avoid burnout:</p>
+        <ul>
+            <li>Each developer can handle up to 5 tasks concurrently</li>
+            <li>If no suitable developer is available, the task remains unassigned for later review</li>
+        </ul>
+
+        <h4 class="mb-3">Future-Proof & Flexible (Coming Soon)</h4>
+        <p>This current version is a prototype / proof of concept, designed to demonstrate:</p>
+        <ul>
+            <li>AI-driven task-to-skill mapping</li>
+            <li>Automated, skill-based assignment</li>
+            <li>Basic workload management</li>
+        </ul>
+        <p>Future enhancements will focus on:</p>
+        <ul>
+            <li>Making the system fully configurable</li>
+            <li>Supporting dynamic reassignments as priorities change</li>
+            <li>Expanding skill domains and integrating with real-world team workflows</li>
+        </ul>
+    </section>
+</div>

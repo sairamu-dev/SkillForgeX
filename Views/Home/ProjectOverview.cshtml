@@ -46,9 +46,13 @@
 
 </style>
 
-<div class="project-overview-card" style="margin:1% 0% 0% 5%;max-width:90%">
+<div class="project-overview-card" style="margin:1% 0% 0% 5%;max-width:90%; background:#f2f2f2 !important">
     <h1 style="margin-bottom: 3%;">Introducing SkillForgeX</h1>
-    <p><strong>AI-Powered Task Assigner for Developer Teams</strong></p>
+    <div style="display:flex;justify-content:space-between">
+        <p><strong>AI-Powered Task Assigner for Developer Teams</strong></p>
+        <a asp-area="" asp-controller="Home" asp-action="UserManual">How it works?</a>
+    </div>
+    
 
     <!-- 1. Problem -->
     <section class="project-overview-card">
@@ -69,21 +73,68 @@
     <!-- 2. Solution -->
     <section class="project-overview-card">
         <h2>The Solution</h2>
+        <p>With <b>SkillForgeX</b>, task assignment becomes faster, smarter, and more efficient  removing the need for manual coordination and micromanagement.</p>
+
+        <h4 class="mb-3">Traditional Approach vs SkillForgeX:</h4>
+        <p><b>In traditional workflows:</b></p>
+        <ul>         
+            <li>Managers must manually assign tasks based on guesswork or limited visibility into developer skills</li>
+            <li>They need to check each developer’s availability individually</li>
+            <li>Tasks are often created without clarity on the technical requirements or potential solutions</li>
+            <li>Managers must constantly follow up to track task progress</li>
+        </ul>
+
+        <p><b>With SkillForgeX:</b></p>
         <ul>
-            <li>AI extracts required skills from task descriptions</li>
-            <li>Matches each task to the best-suited developer</li>
-            <li>Enforces a fair workload cap (maximum 5 active tasks per developer)</li>
-            <li>Dynamically reassigns tasks when priorities change</li>
+            <li>Tasks can be created <b>without knowing the exact technical solution</b> the AI analyzes the description and <b>extracts the required skills automatically</b>.</li>
+            <li>Tasks are <b>automatically assigned</b> to the best-fit developer based on skills and current workload</li>
+            <li>Developer availability is managed by the system, respecting a <b>maximum of 5 concurrent tasks per developer</b></li>
+            <li>Task progress can be <b>tracked in real-time</b>, reducing the need for constant check-ins or micromanagement</li>
+        </ul>
+
+        <p><b>This AI-powered workflow ensures that:</b></p>
+        <ul>
+            <li>Developers get tasks aligned with their strengths</li>
+            <li>Managers save time on coordination</li>
+            <li>Teams stay productive and balanced  even as priorities shift</li>
         </ul>
     </section>
 
-    <!-- 3. Differentiators -->
     <section class="project-overview-card">
-        <h2>Key Differentiators</h2>
-        <ul>
-            <li>Role-based access: Admin, Manager, Developer, Guest</li>
-            <li>Unlike Jira/Trello: automatic skill-based assignment, real workload balance, and priority-aware allocation</li>
-            <li>Developer-first design: prevents mismatched work and protects against burnout</li>
-        </ul>
+        <h2>Feature Comparison</h2>
+        <p>This table highlights how <b>SkillForgeX</b> compares to other popular tools:</p>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>SkillForgeX</th>
+                    <th>Jira</th>
+                    <th>Trello</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Skill-Based Assignment</td>
+                    <td>Automatic</td>
+                    <td>Manual / User-defined</td>
+                    <td>Manual / User-defined</td>
+                </tr>
+                <tr>
+                    <td>Workload Balance</td>
+                    <td>Automatic, real-time</td>
+                    <td>Requires manual adjustment</td>
+                    <td>Not natively supported</td>
+                </tr>
+                <tr>
+                    <td>Priority-Aware Allocation</td>
+                    <td>Built-in automatic support</td>
+                    <td>Requires rules / plugins / manual</td>
+                    <td>Limited, needs manual setup</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p><b>Developer-first design</b>: prevents mismatched work and protects against burnout</p>
     </section>
 </div>
