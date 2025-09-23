@@ -8,7 +8,6 @@
 
 @Html.Partial("_sidePanelLayout")
 
-
 <div class="dev-users-card" style="padding: 30px;">
     <div id="header" style="display: flex; align-items: center; margin-bottom: 3%;">
         <div>
@@ -16,7 +15,6 @@
         </div>
         <div style="margin-left: auto;">
             <button type="button" id="btnTaskCreate"
-                    @* onclick="openSidePanel('@Url.Action("Task", "Home", new { area = "Manager" })')" *@
                     onclick="location.href='@Url.Action("Task", "Home", new { area = "Manager" })'"
                     class="btn btn-primary">
                 Create Task
@@ -72,7 +70,7 @@
                         </td>
                         <td data-label="Concurrent Task">
                             <button type="button"
-                                    class="btn btn-outline-danger"
+                                    class="btn btn-outline-danger" id="ongoingTaskBtn_@user.ID"
                                     onclick="if (@(user.ConcurrentTask ?? 0) === 0) return false; openSidePanel('@Url.Action("GetDeveloperTask", "Home", new { area = "Manager", Dev = user.ID })')"
                                     title="@(user.ConcurrentTask == null || user.ConcurrentTask == 0 ? "No ongoing tasks" : "Click to view ongoing task")">
                                 <img src="~/images/clipboard2-check-fill.svg" alt="clipboard icon" style="width:16px; height:16px; margin-right: 5px;" />
@@ -94,11 +92,51 @@
 </div>
 
 <script>
-    function toggleNoteContent() {
-        var content = document.getElementById("noteContent");
-        content.style.display = content.style.display === "none" ? "block" : "none";
-    }
+    document.addEventListener("DOMContentLoaded", function () {
+        if (!localStorage.getItem("seenTaskPopover")) {
+            const firstTaskBtn = document.querySelector("[id^='ongoingTaskBtn_']");
+
+            if (firstTaskBtn) {
+                const intro = introJs();
+
+                intro.setOptions({
+                    steps: [
+                        {
+                            element: firstTaskBtn,
+                            intro: "💡 Click here to view ongoing tasks detail",
+                            position: "right"
+                        }
+                    ],
+                    showBullets: false,
+                    exitOnOverlayClick: true,
+                    showProgress: false
+                });
+
+                firstTaskBtn.addEventListener("click", function () {
+                    intro.exit(); // closes popover when button is clicked
+                });
+
+                intro.oncomplete(function () {
+                    localStorage.setItem("seenTaskPopover", "true");
+                });
+
+                intro.onexit(function () {
+                    localStorage.setItem("seenTaskPopover", "true");
+                });
+
+                // Start intro
+                intro.start();
+
+                setTimeout(function () {
+                    intro.exit(); // this closes the popover
+                }, 10000); // 10 sec
+            }
+        }
+    });
 </script>
+
+
+
 
 
 

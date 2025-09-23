@@ -316,8 +316,16 @@
 
         function showDetails(taskID) {
             const div = document.getElementById("taskdetail-" + taskID);
-            if (div)
+            if (div) {
                 div.style.display = 'block';
+
+                window.scrollTo({
+                    top: div.offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+                
+                
         }
 
         function closePreviousDetails() {

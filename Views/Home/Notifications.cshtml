@@ -84,10 +84,21 @@
         var alertBox = document.getElementById('welcomeAlert');
         var notificationMsg = document.getElementById('notificationMsg');
 
-        if (alertBox) {
+        // Check if user has already seen the alert
+        if (!localStorage.getItem('seenWelcomeAlert')) {
+            // Show alert
+            alertBox.style.display = 'block';
+            notificationMsg.style.display = 'none';
+
+            // Mark as seen when alert is closed
             alertBox.addEventListener('closed.bs.alert', function () {
-                notificationMsg.style.display = 'block'; // Show after alert closes
+                localStorage.setItem('seenWelcomeAlert', 'true');
+                notificationMsg.style.display = 'block';
             });
+        } else {
+            // Alert already seen, show notification message instead
+            alertBox.style.display = 'none';
+            notificationMsg.style.display = 'block';
         }
     });
 </script>
