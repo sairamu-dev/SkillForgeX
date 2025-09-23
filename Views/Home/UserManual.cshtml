@@ -47,7 +47,7 @@
 </style>
 
 <div class="project-overview-card" style="margin:1% 0% 0% 5%;max-width:90%; background:#f2f2f2 !important">
-    <h1 style="margin-bottom: 3%;">Introducing SkillForgeX</h1>
+    <h1 style="margin-bottom: 1%;">Introducing SkillForgeX</h1>
     <div style="display:flex;justify-content:space-between">
         <p><strong>AI-Powered Task Assigner for Developer Teams</strong></p>
         <a asp-area="" asp-controller="Home" asp-action="ProjectOverview">Project Overview</a>
@@ -55,48 +55,41 @@
     
     @* how it works *@
     <section class="project-overview-card">
-        <h4>How It Works</h4>
+        <h2>How It Works</h2>
         <p><b>SkillForgeX</b> simplifies task assignment by using AI to intelligently match tasks with the most suitable developers based on required skills and current workload.</p>
 
-        <h1 class="mb-3">Developer Skill Profiles</h1>
+        <p><strong style="color:#4154f1">Developer Skill Profiles:</strong></p>
         <p>The system begins with a <b>list of developers, each tagged with their specific skillsets. </b>(e.g., .NET, React, Angular, etc....)</p>
 
-        <h4 class="mb-3">Task Creation</h4>
+        <p><strong style="color:#4154f1">Task Creation:</strong></p>
         <p>When a Manager / Guest creates a new task, they provide key task details, such as:</p>
         <ul>
             <li>Task title and description</li>
             <li>Priority level</li>
-            <li>Project context</li>
+            <li>Project deadline</li>
         </ul>
 
-        <h4 class="mb-3">AI-Powered Skill Extraction</h4>
+        <p><strong style="color:#4154f1">AI-Powered Skill Extraction:</strong></p>
         <p>
             Using AI, the system <b>automatically analyzes the task description and extracts the required technical skills</b>.
             For this prototype, the AI prompt is tailored to <b>focus on .NET technologies and frontend development.</b>
         </p>
 
-        <h4 class="mb-3">Smart Task Assignment</h4>
-        <p>Based on the extracted skills, the system <b>assigns the task to the best-suited available developer</b> — someone whose skills match the task requirements and who has capacity to take on more work.</p>
+        <p><strong style="color:#4154f1">Smart Task Assignment:</strong></p>
+        <p>Based on the extracted skills, the system <b>assigns the task to the best-suited available developer</b> - someone whose skills match the task requirements and who has capacity to take on more work.</p>
 
-        <h4 class="mb-3">Workload Balancing</h4>
+        <p><strong style="color:#4154f1">Workload Balancing:</strong></p>
         <p>To ensure fair distribution and avoid burnout:</p>
         <ul>
             <li>Each developer can handle up to 5 tasks concurrently</li>
             <li>If no suitable developer is available, the task remains unassigned for later review</li>
         </ul>
 
-        <h4 class="mb-3">Future-Proof & Flexible (Coming Soon)</h4>
-        <p>This current version is a prototype / proof of concept, designed to demonstrate:</p>
+        <p><strong style="color:#4154f1">Future enhancements will focus on:</strong></p>
         <ul>
-            <li>AI-driven task-to-skill mapping</li>
-            <li>Automated, skill-based assignment</li>
-            <li>Basic workload management</li>
-        </ul>
-        <p>Future enhancements will focus on:</p>
-        <ul>
-            <li>Making the system fully configurable</li>
-            <li>Supporting dynamic reassignments as priorities change</li>
-            <li>Expanding skill domains and integrating with real-world team workflows</li>
+            <li>Make the system fully configurable</li>
+            <li>Expand skill domains and integrate with real-world team workflows</li>
+            <li>Add new features based on user feedback to improve the project</li>
         </ul>
     </section>
 </div>
