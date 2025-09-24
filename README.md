@@ -108,7 +108,7 @@ It ensures that tasks are matched to the most suitable developers, balances work
 - Serilog – Logging & monitoring
 
 ### Note: 
-- This is currently a **prototype / proof of concept**.  
+- Users and skills are currently **static (preloaded)** for demonstration and testing..  
 - It demonstrates the idea of AI-powered task assignment and workload balancing but is **not yet production-ready.**
 - Future updates will focus on making users and skills **fully configurable.**
 
