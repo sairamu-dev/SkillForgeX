@@ -1,5 +1,5 @@
 # SkillForgeX
-AI-Powered Smart Task Assigner for Developer Teams - [Live Demo](http://skillforgex.runasp.net/)
+AI-Powered Smart Task Assigner for Developer Teams - [Live Demo](https://skillforgex.runasp.net/)
 
 ### Table of Contents
 - Overview
